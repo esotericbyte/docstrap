@@ -1,0 +1,31 @@
+/* qapanels.css — the two rules that cannot be scoped to a component,
+   because they apply to the host page rather than to anything this
+   instrument draws.
+
+   Everything the panels themselves draw is styled inside the components,
+   scoped. What is left here is the scroll lock on the document behind
+   the mode, keyed on the body class the launcher sets from the
+   declaration's `visibility_class`, and the mount point's own placement.
+
+   The lock applies only to a body that actually holds the mounted root.
+   The class alone is not enough to go on: visibility is remembered in
+   localStorage, which a framed page of the same site shares, so the
+   reference panel's page — and every page the viewer shell frames —
+   starts with the class set and the panels declining to mount. Keyed on
+   the class alone, the lock froze those pages, which is the "bottom
+   section has no scroll bar" defect.
+
+   Theme-agnostic, like every other tool's stylesheet: the host page's
+   styling belongs to Sphinx and furo. */
+
+body.docstrap-show-qapanels:has(> .docstrap-qapanels-root) {
+  overflow: hidden;
+}
+
+/* The overlay's placement belongs to its host, which is this root;
+   Panels.svelte fills whatever box it is mounted in. */
+.docstrap-qapanels-root {
+  position: fixed;
+  inset: 0;
+  z-index: 2147483000;
+}

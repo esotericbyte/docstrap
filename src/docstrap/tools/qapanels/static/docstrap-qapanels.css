@@ -1,0 +1,451 @@
+
+  .editor.svelte-icempe {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    min-height: 0;
+    padding: 0.6em 0.9em 0.3em;
+    box-sizing: border-box;
+  }
+  .prompt.svelte-icempe {
+    display: flex;
+    gap: 0.6em;
+    align-items: baseline;
+    margin-bottom: 0.5em;
+    font-size: 0.92em;
+  }
+  .prompt.svelte-icempe .label:where(.svelte-icempe) {
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+  }
+  .prompt.svelte-icempe .text:where(.svelte-icempe) {
+    flex: 1 1 auto;
+    min-width: 0;
+    opacity: 0.9;
+    font-size: 1.3em;
+  }
+  .state.svelte-icempe {
+    flex: 0 0 auto;
+    font-size: 0.75em;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  .state.submitted.svelte-icempe {
+    color: #1b5e2b;
+  }
+  .state.revising.svelte-icempe {
+    color: #7a5b10;
+  }
+  .state.open.svelte-icempe {
+    opacity: 0.6;
+  }
+  .state.kept.svelte-icempe {
+    opacity: 0.55;
+  }
+  .form.svelte-icempe {
+    flex: 1 1 auto;
+    min-height: 0;
+    display: flex;
+  }
+  textarea.svelte-icempe {
+    flex: 1 1 auto;
+    width: 100%;
+    min-height: 6em;
+    padding: 0.5em 0.65em;
+    border: 1px solid #c4c4c4;
+    border-radius: 0.2em;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 1.144em;
+    line-height: 1.5;
+    resize: none;
+    box-sizing: border-box;
+    background: inherit;
+    color: inherit;
+  }
+  textarea.svelte-icempe:focus {
+    outline: 2px solid #4a7bb6;
+    outline-offset: -1px;
+  }
+  .controls.svelte-icempe {
+    display: flex;
+    align-items: center;
+    gap: 0.75em;
+    margin-top: 0.35em;
+    min-height: 1.9em;
+  }
+  .status.svelte-icempe {
+    margin: 0;
+    font-size: 0.8em;
+  }
+  .saved.svelte-icempe {
+    color: #1b5e2b;
+  }
+  .error.svelte-icempe {
+    color: #a02020;
+  }
+  .idle.svelte-icempe {
+    margin: auto;
+    opacity: 0.6;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    textarea.svelte-icempe {
+      border-color: #364252;
+    }
+    .saved.svelte-icempe,
+    .state.submitted.svelte-icempe {
+      color: #7fd39b;
+    }
+    .state.revising.svelte-icempe {
+      color: #e0c27a;
+    }
+    .error.svelte-icempe {
+      color: #f08b8b;
+    }
+  }
+
+  .list.svelte-i0b7kz {
+    overflow-y: auto;
+    height: 100%;
+    padding: 0.25em 0;
+  }
+  .group.svelte-i0b7kz + .group:where(.svelte-i0b7kz) {
+    margin-top: 0.75em;
+  }
+  .group-title.svelte-i0b7kz {
+    display: flex;
+    align-items: center;
+    gap: 0.6em;
+    padding: 0.3em 0.9em;
+    position: sticky;
+    top: 0;
+    background: inherit;
+  }
+  .path.svelte-i0b7kz {
+    flex: 1 1 auto;
+    min-width: 0;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.78em;
+    letter-spacing: 0.02em;
+    opacity: 0.7;
+  }
+  .done.svelte-i0b7kz {
+    flex: 0 0 auto;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35em;
+    padding: 0.15em 0.7em;
+    border: 1px solid #4a7bb6;
+    border-radius: 0.2em;
+    background: none;
+    color: #4a7bb6;
+    font: inherit;
+    font-size: 0.8em;
+    cursor: pointer;
+  }
+  .done.svelte-i0b7kz:hover:not(:disabled) {
+    background: rgba(74, 123, 182, 0.16);
+  }
+  .done.svelte-i0b7kz:disabled {
+    opacity: 0.5;
+    cursor: default;
+  }
+  .notice.svelte-i0b7kz {
+    flex: 0 1 auto;
+    min-width: 0;
+    font-size: 0.8em;
+    color: #1b5e2b;
+  }
+  .notice.failed.svelte-i0b7kz {
+    color: #a02020;
+  }
+  .row.svelte-i0b7kz {
+    display: flex;
+    align-items: baseline;
+    gap: 0.6em;
+    width: 100%;
+    text-align: left;
+    padding: 0.35em 0.9em;
+    border: 0;
+    border-left: 3px solid transparent;
+    background: none;
+    color: inherit;
+    font: inherit;
+    font-size: 0.9em;
+    cursor: pointer;
+  }
+  .row.svelte-i0b7kz:hover {
+    background: rgba(127, 127, 127, 0.12);
+  }
+  .row.selected.svelte-i0b7kz,
+  .row.selected.svelte-i0b7kz:hover {
+    border-left-color: #4a7bb6;
+    background: rgba(74, 123, 182, 0.32);
+    box-shadow: inset 0 0 0 1px rgba(74, 123, 182, 0.55);
+  }
+  .label.svelte-i0b7kz {
+    flex: 0 0 auto;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+  }
+  .text.svelte-i0b7kz {
+    flex: 1 1 auto;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .answered.svelte-i0b7kz,
+  .drafted.svelte-i0b7kz {
+    flex: 0 0 auto;
+    font-size: 0.75em;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  .answered.svelte-i0b7kz {
+    color: #1b5e2b;
+  }
+  .drafted.svelte-i0b7kz {
+    opacity: 0.55;
+    font-style: italic;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    .answered.svelte-i0b7kz,
+    .notice.svelte-i0b7kz {
+      color: #7fd39b;
+    }
+    .notice.failed.svelte-i0b7kz {
+      color: #f08b8b;
+    }
+    .row.selected.svelte-i0b7kz,
+    .row.selected.svelte-i0b7kz:hover {
+      border-left-color: #7ea6d6;
+      background: rgba(126, 166, 214, 0.28);
+      box-shadow: inset 0 0 0 1px rgba(126, 166, 214, 0.55);
+    }
+    .done.svelte-i0b7kz {
+      border-color: #7ea6d6;
+      color: #7ea6d6;
+    }
+  }
+  .empty.svelte-i0b7kz {
+    margin: 0;
+    padding: 1em 0.9em;
+    opacity: 0.7;
+  }
+
+  .reference.svelte-1co2ifa {
+    height: 100%;
+    min-height: 0;
+    display: flex;
+  }
+  iframe.svelte-1co2ifa {
+    flex: 1 1 auto;
+    width: 100%;
+    height: 100%;
+    border: 0;
+    background: #fff;
+  }
+  .note.svelte-1co2ifa {
+    margin: auto;
+    max-width: 34em;
+    padding: 1em;
+    opacity: 0.75;
+    font-size: 0.9em;
+  }
+  @media (prefers-color-scheme: dark) {
+    iframe.svelte-1co2ifa {
+      background: #14181d;
+    }
+  }
+
+  .panels.svelte-e854ru {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    background: #f6f7f9;
+    color: #1a1a1a;
+    font-family:
+      system-ui,
+      -apple-system,
+      'Segoe UI',
+      sans-serif;
+  }
+  .bar.svelte-e854ru {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 0.9em;
+    padding: 0.45em 0.9em;
+    background: #26333f;
+    color: #f2f5f8;
+    font-size: 0.9em;
+  }
+  .title.svelte-e854ru {
+    font-weight: 600;
+  }
+  .scope.svelte-e854ru {
+    display: inline-flex;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 0.2em;
+    overflow: hidden;
+  }
+  .scope.svelte-e854ru button:where(.svelte-e854ru) {
+    padding: 0.2em 0.7em;
+    border: 0;
+    background: none;
+    color: inherit;
+    font: inherit;
+    font-size: 0.88em;
+    cursor: pointer;
+    opacity: 0.7;
+  }
+  .scope.svelte-e854ru button:where(.svelte-e854ru) + button:where(.svelte-e854ru) {
+    border-left: 1px solid rgba(255, 255, 255, 0.3);
+  }
+  .scope.svelte-e854ru button:where(.svelte-e854ru):hover:not(:disabled) {
+    background: rgba(255, 255, 255, 0.12);
+  }
+  .scope.svelte-e854ru button.on:where(.svelte-e854ru) {
+    background: rgba(255, 255, 255, 0.22);
+    opacity: 1;
+    font-weight: 600;
+  }
+  .scope.svelte-e854ru button:where(.svelte-e854ru):disabled {
+    opacity: 0.35;
+    cursor: default;
+  }
+  .delivered.svelte-e854ru {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.8em;
+    padding: 0.15em 0.5em;
+    border-radius: 0.2em;
+    background: rgba(127, 211, 155, 0.22);
+  }
+  .count.svelte-e854ru {
+    margin-right: auto;
+    opacity: 0.75;
+    font-variant-numeric: tabular-nums;
+  }
+  .close.svelte-e854ru {
+    padding: 0.25em 0.8em;
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    border-radius: 0.2em;
+    background: none;
+    color: inherit;
+    font: inherit;
+    cursor: pointer;
+  }
+  .close.svelte-e854ru:hover {
+    background: rgba(255, 255, 255, 0.12);
+  }
+  .finish-row.svelte-e854ru {
+    display: flex;
+    align-items: center;
+    gap: 0.75em;
+    padding: 0.6em 0.9em 0.5em;
+    margin-top: 0.5em;
+    border-top: 1px solid #dfe3e8;
+  }
+  .finish.svelte-e854ru {
+    flex: 0 0 auto;
+    padding: 0.3em 1em;
+    border: 1px solid #4a7bb6;
+    border-radius: 0.2em;
+    background: #4a7bb6;
+    color: #fff;
+    font: inherit;
+    font-size: 0.88em;
+    cursor: pointer;
+  }
+  .finish.svelte-e854ru:hover:not(:disabled) {
+    background: #3a6ba6;
+  }
+  .finish.svelte-e854ru:disabled {
+    opacity: 0.5;
+    cursor: default;
+  }
+  .finish-note.svelte-e854ru {
+    min-width: 0;
+    font-size: 0.8em;
+    opacity: 0.8;
+  }
+  .finish-note.svelte-e854ru .failed:where(.svelte-e854ru) {
+    color: #a02020;
+  }
+  .error.svelte-e854ru {
+    flex: 0 0 auto;
+    margin: 0;
+    padding: 0.5em 0.9em;
+    background: #fbe9e9;
+    color: #7a1e1e;
+    font-size: 0.85em;
+  }
+  .panel.svelte-e854ru {
+    min-height: 0;
+    background: #fff;
+    border-top: 1px solid #dfe3e8;
+  }
+  /* Shares of the host's height, not the viewport's: the overlay's host
+     is the viewport, so there these are the 28vh and 22vh they were. */
+  .panel-list.svelte-e854ru {
+    flex: 0 0 28%;
+  }
+  .panel-editor.svelte-e854ru {
+    flex: 0 0 22%;
+  }
+  .panel-reference.svelte-e854ru {
+    flex: 1 1 auto;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    .panels.svelte-e854ru {
+      background: #12171c;
+      color: #e6e8ea;
+    }
+    .panel.svelte-e854ru {
+      background: #1a2027;
+      border-top-color: #2c353f;
+    }
+    .error.svelte-e854ru {
+      background: #3a2020;
+      color: #f2c0c0;
+    }
+    .finish-row.svelte-e854ru {
+      border-top-color: #2c353f;
+    }
+    .finish-note.svelte-e854ru .failed:where(.svelte-e854ru) {
+      color: #f08b8b;
+    }
+  }
+/* qapanels.css — the two rules that cannot be scoped to a component,
+   because they apply to the host page rather than to anything this
+   instrument draws.
+
+   Everything the panels themselves draw is styled inside the components,
+   scoped. What is left here is the scroll lock on the document behind
+   the mode, keyed on the body class the launcher sets from the
+   declaration's `visibility_class`, and the mount point's own placement.
+
+   The lock applies only to a body that actually holds the mounted root.
+   The class alone is not enough to go on: visibility is remembered in
+   localStorage, which a framed page of the same site shares, so the
+   reference panel's page — and every page the viewer shell frames —
+   starts with the class set and the panels declining to mount. Keyed on
+   the class alone, the lock froze those pages, which is the "bottom
+   section has no scroll bar" defect.
+
+   Theme-agnostic, like every other tool's stylesheet: the host page's
+   styling belongs to Sphinx and furo. */
+
+body.docstrap-show-qapanels:has(> .docstrap-qapanels-root) {
+  overflow: hidden;
+}
+
+/* The overlay's placement belongs to its host, which is this root;
+   Panels.svelte fills whatever box it is mounted in. */
+.docstrap-qapanels-root {
+  position: fixed;
+  inset: 0;
+  z-index: 2147483000;
+}

@@ -1,0 +1,39 @@
+/* docstrap-viewer-button.css — the button that opens a page in the viewer.
+
+   Shown only while the page is open on its own: the script marks the
+   root element `data-docstrap-view="page"` at the top level and
+   "framed" inside a frame, and with no mark at all — before the script
+   runs, or with scripts off — the button is hidden too. Inside the
+   viewer it therefore never appears, whichever runs first.
+
+   Colours come from the furo theme's own variables where it has them,
+   so the button follows the page's light and dark modes. */
+
+.docstrap-open-in-viewer {
+  display: none;
+}
+
+html[data-docstrap-view="page"] .docstrap-open-in-viewer {
+  position: fixed;
+  right: 1em;
+  bottom: 1em;
+  z-index: 1000;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border: 1px solid var(--color-background-border, #c4c4c4);
+  border-radius: 50%;
+  background: var(--color-background-primary, #fff);
+  color: var(--color-foreground-secondary, #4a7bb6);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+  opacity: 0.7;
+  text-decoration: none;
+}
+
+html[data-docstrap-view="page"] .docstrap-open-in-viewer:hover,
+html[data-docstrap-view="page"] .docstrap-open-in-viewer:focus-visible {
+  opacity: 1;
+  color: var(--color-brand-primary, #4a7bb6);
+}

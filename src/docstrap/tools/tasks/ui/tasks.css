@@ -1,0 +1,193 @@
+/* tasks.css — the task list's columns, shared by both of its tables.
+
+   The plain table the directive renders and the list the tool draws over
+   it lay their columns out by the same rules, so they are written once,
+   here, against the `data-key` each cell carries, and apply to the plain
+   table before any script runs — on a page opened on its own no script
+   of this tool ever does.
+
+   Within the theme's text width, never past it: the table sits in a box
+   of its own with a maximum height, scrolls inside it both ways, and
+   holds the header row and the task column in place while it does.
+   Every column has a fixed width (`tasks.ts` `SIZES`, which TanStack
+   Table holds the drawn list to and which the plain table is given
+   below): the task id is compact, never wraps and is cut short with the
+   whole id on hover; free text wraps inside its width; symbols, dates and
+   states take what they need.
+
+   Theme-agnostic: colours come from the furo theme's variables where it
+   has them, with a plain fallback for any other theme. */
+
+.docstrap-tasks .table-wrapper {
+  /* The box's own width, for what must fit in it and not in the table:
+     an opened task's detail (below). */
+  container-type: inline-size;
+  max-width: 100%;
+  max-height: 85vh;
+  overflow: auto;
+  margin: 0 0 1em;
+  padding: 0;
+}
+
+.docstrap-tasks table {
+  table-layout: fixed;
+  margin: 0;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 0.85em;
+}
+
+.docstrap-tasks td,
+.docstrap-tasks th {
+  /* A width is the whole cell's, as TanStack counts it. */
+  box-sizing: border-box;
+  padding: 0.3em 0.5em;
+  vertical-align: top;
+  text-align: left;
+}
+/* Separate borders, because a collapsed border belongs to the table and
+   would scroll away from a cell held in place; so each cell draws only
+   its right and bottom edges, and two cells never draw one line twice. */
+.docstrap-tasks td,
+.docstrap-tasks th {
+  border-left: none;
+}
+
+/* The header row stays at the top of the box while the rows scroll. */
+.docstrap-tasks thead th {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  vertical-align: bottom;
+  background: var(--color-table-header-background, var(--color-background-secondary, #f8f9fb));
+}
+
+/* The task column stays at the left while the columns scroll. */
+.docstrap-tasks td[data-key='id'],
+.docstrap-tasks th[data-key='id'] {
+  position: sticky;
+  left: 0;
+  z-index: 1;
+  white-space: nowrap;
+  background: var(--color-background-primary, #fff);
+  box-shadow: inset -1px 0 0 var(--color-table-border, var(--color-background-border, #ddd));
+}
+.docstrap-tasks thead th[data-key='id'] {
+  z-index: 3;
+  background: var(--color-table-header-background, var(--color-background-secondary, #f8f9fb));
+}
+
+/* A group's heading spans the table and its name stays in view. */
+.docstrap-tasks tr.group th,
+.docstrap-tasks tr.unit th {
+  text-align: left;
+  background: var(--color-background-secondary, #f8f9fb);
+}
+.docstrap-tasks tr.group .heading,
+.docstrap-tasks tr.unit .heading {
+  position: sticky;
+  left: 0.5em;
+  max-width: calc(100cqi - 1.5em);
+}
+.docstrap-tasks tr.group .heading .name,
+.docstrap-tasks tr.unit .heading .name {
+  display: block;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* An opened task's detail spans the table, which may be far wider than
+   the box; it is held to the box's width and to its left edge, so it
+   reads without scrolling sideways. */
+.docstrap-tasks tr.detail-row td > * {
+  position: sticky;
+  left: 0;
+  max-width: calc(100cqi - 1em);
+}
+
+/* The id: one line, cut short, the whole of it on hover. In the drawn
+   list it shares its cell with the opener, and takes what is left. */
+.docstrap-tasks .task-id {
+  display: block;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.docstrap-tasks td[data-key='id'] > * {
+  max-width: 100%;
+}
+
+/* The link to the task's own section on the overlaps page: small, beside
+   the id it belongs to. */
+.docstrap-tasks .tangle {
+  font-size: 0.8em;
+  white-space: nowrap;
+}
+
+/* Free text wraps inside its column, breaking a long path if it must. */
+.docstrap-tasks .wrap {
+  display: block;
+  overflow-wrap: anywhere;
+}
+
+/* The plain table's widths: the same as `tasks.ts` `SIZES`, which the
+   drawn list is held to by TanStack. The table is their sum. */
+.docstrap-tasks-static table {
+  width: 1414px;
+}
+.docstrap-tasks-static th[data-key='id'] { width: 150px; }
+.docstrap-tasks-static th[data-key='title'] { width: 300px; }
+.docstrap-tasks-static th[data-key='unit'] { width: 190px; }
+.docstrap-tasks-static th[data-key='filed'] { width: 92px; }
+.docstrap-tasks-static th[data-key='last_activity'] { width: 92px; }
+.docstrap-tasks-static th[data-key='state'] { width: 84px; }
+.docstrap-tasks-static th[data-key='work'] { width: 56px; }
+.docstrap-tasks-static th[data-key='stuck'] { width: 56px; }
+.docstrap-tasks-static th[data-key='alignment'] { width: 80px; }
+.docstrap-tasks-static th[data-key='done_elsewhere'] { width: 80px; }
+.docstrap-tasks-static th[data-key='lifecycle_stage'] { width: 84px; }
+.docstrap-tasks-static th[data-key='recommendation'] { width: 150px; }
+
+.docstrap-tasks td[data-key='filed'],
+.docstrap-tasks td[data-key='last_activity'],
+.docstrap-tasks td[data-key='state'],
+.docstrap-tasks td[data-key='lifecycle_stage'],
+.docstrap-tasks td[data-key='project'] {
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+.docstrap-tasks td[data-key='work'],
+.docstrap-tasks td[data-key='stuck'],
+.docstrap-tasks td[data-key='alignment'],
+.docstrap-tasks td[data-key='done_elsewhere'] {
+  white-space: nowrap;
+  text-align: center;
+}
+
+/* The latest recommendation: the action, and under it when and by whom. */
+.docstrap-tasks td[data-key='recommendation'] .action,
+.docstrap-tasks td[data-key='recommendation'] .meta {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.docstrap-tasks td[data-key='recommendation'] .action {
+  font-weight: 600;
+}
+.docstrap-tasks td[data-key='recommendation'] .meta {
+  color: var(--color-foreground-secondary, #666);
+  font-size: 0.9em;
+  font-variant-numeric: tabular-nums;
+}
+
+@media print {
+  .docstrap-tasks .table-wrapper {
+    max-height: none;
+    overflow: visible;
+  }
+}

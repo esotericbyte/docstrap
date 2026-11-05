@@ -1,0 +1,603 @@
+
+  .facet.svelte-6zn7oo {
+    position: relative;
+  }
+  .trigger.svelte-6zn7oo {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35em;
+    padding: 0.25em 0.6em;
+    border: 1px solid var(--color-background-border, #c4c4c4);
+    border-radius: 0.25em;
+    background: var(--color-background-primary, #fff);
+    color: var(--color-foreground-primary, #222);
+    font: inherit;
+    font-size: 0.85em;
+    cursor: pointer;
+  }
+  .trigger.svelte-6zn7oo:hover {
+    background: var(--color-background-hover, #f2f2f2);
+  }
+  .trigger.active.svelte-6zn7oo {
+    border-color: var(--color-brand-primary, #4a7bb6);
+  }
+  .chosen.svelte-6zn7oo {
+    min-width: 1.3em;
+    padding: 0 0.3em;
+    border-radius: 0.65em;
+    background: var(--color-brand-primary, #4a7bb6);
+    color: var(--color-background-primary, #fff);
+    font-size: 0.85em;
+    text-align: center;
+  }
+  .menu.svelte-6zn7oo {
+    position: absolute;
+    z-index: 20;
+    top: calc(100% + 0.25em);
+    left: 0;
+    min-width: 12em;
+    max-height: 22em;
+    overflow-y: auto;
+    padding: 0.3em 0;
+    border: 1px solid var(--color-background-border, #c4c4c4);
+    border-radius: 0.25em;
+    background: var(--color-background-primary, #fff);
+    box-shadow: 0 0.3em 1em rgba(0, 0, 0, 0.15);
+  }
+  label.svelte-6zn7oo {
+    display: flex;
+    align-items: center;
+    gap: 0.45em;
+    padding: 0.2em 0.7em;
+    font-size: 0.85em;
+    white-space: nowrap;
+    cursor: pointer;
+  }
+  label.svelte-6zn7oo:hover {
+    background: var(--color-background-hover, #f2f2f2);
+  }
+  label.empty.svelte-6zn7oo {
+    color: var(--color-foreground-muted, #888);
+  }
+  .value.svelte-6zn7oo {
+    flex: 1;
+  }
+  .count.svelte-6zn7oo {
+    color: var(--color-foreground-secondary, #666);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .bar.svelte-1vvebzp {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5em;
+    margin: 1em 0 0.5em;
+  }
+  .search.svelte-1vvebzp {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35em;
+    padding: 0.2em 0.5em;
+    border: 1px solid var(--color-background-border, #c4c4c4);
+    border-radius: 0.25em;
+    background: var(--color-background-primary, #fff);
+    color: var(--color-foreground-secondary, #666);
+  }
+  .search.svelte-1vvebzp input:where(.svelte-1vvebzp) {
+    width: 12em;
+    border: none;
+    outline: none;
+    background: transparent;
+    color: var(--color-foreground-primary, #222);
+    font: inherit;
+    font-size: 0.85em;
+  }
+  .range.svelte-1vvebzp {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3em;
+    font-size: 0.85em;
+    color: var(--color-foreground-secondary, #666);
+  }
+  .range.svelte-1vvebzp input:where(.svelte-1vvebzp) {
+    padding: 0.15em 0.3em;
+    border: 1px solid var(--color-background-border, #c4c4c4);
+    border-radius: 0.25em;
+    background: var(--color-background-primary, #fff);
+    color: var(--color-foreground-primary, #222);
+    font: inherit;
+  }
+  .clear.svelte-1vvebzp {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.3em;
+    border: 1px solid var(--color-background-border, #c4c4c4);
+    border-radius: 0.25em;
+    background: var(--color-background-primary, #fff);
+    color: var(--color-foreground-secondary, #666);
+    cursor: pointer;
+  }
+  .clear.svelte-1vvebzp:hover {
+    background: var(--color-background-hover, #f2f2f2);
+  }
+  .count.svelte-1vvebzp {
+    margin-left: auto;
+    font-size: 0.85em;
+    color: var(--color-foreground-secondary, #666);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .detail.svelte-1c0e6wu {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6em;
+    padding: 0.4em 0.2em 0.6em;
+    white-space: normal;
+  }
+  dl.svelte-1c0e6wu {
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    gap: 0.2em 0.8em;
+    margin: 0;
+  }
+  dt.svelte-1c0e6wu {
+    color: var(--color-foreground-secondary, #666);
+  }
+  dd.svelte-1c0e6wu {
+    margin: 0;
+  }
+  .recommendations.svelte-1c0e6wu {
+    margin: 0;
+    padding-left: 1.4em;
+  }
+  .recommendations.svelte-1c0e6wu li:where(.svelte-1c0e6wu) + li:where(.svelte-1c0e6wu) {
+    margin-top: 0.2em;
+  }
+  .action.svelte-1c0e6wu {
+    font-weight: 600;
+  }
+  .meta.svelte-1c0e6wu {
+    color: var(--color-foreground-secondary, #666);
+    font-variant-numeric: tabular-nums;
+  }
+  .note.svelte-1c0e6wu::before {
+    content: ' — ';
+  }
+  .decide.svelte-1c0e6wu {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4em;
+    max-width: 48em;
+  }
+  .choices.svelte-1c0e6wu {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.3em;
+  }
+  .choices.svelte-1c0e6wu label:where(.svelte-1c0e6wu) {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.15em 0.6em;
+    border: 1px solid var(--color-background-border, #c4c4c4);
+    border-radius: 1em;
+    background: var(--color-background-primary, #fff);
+    cursor: pointer;
+  }
+  .choices.svelte-1c0e6wu label:where(.svelte-1c0e6wu):hover {
+    background: var(--color-background-hover, #f2f2f2);
+  }
+  .choices.svelte-1c0e6wu label.chosen:where(.svelte-1c0e6wu) {
+    border-color: var(--color-brand-primary, #4a7bb6);
+    background: var(--color-brand-primary, #4a7bb6);
+    color: var(--color-background-primary, #fff);
+  }
+  .choices.svelte-1c0e6wu input:where(.svelte-1c0e6wu) {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+  }
+  .choices.svelte-1c0e6wu label:where(.svelte-1c0e6wu):has(input:where(.svelte-1c0e6wu):focus-visible) {
+    outline: 2px solid var(--color-brand-primary, #4a7bb6);
+    outline-offset: 1px;
+  }
+  textarea.svelte-1c0e6wu {
+    padding: 0.3em 0.5em;
+    border: 1px solid var(--color-background-border, #c4c4c4);
+    border-radius: 0.25em;
+    background: var(--color-background-primary, #fff);
+    color: var(--color-foreground-primary, #222);
+    font: inherit;
+    resize: vertical;
+  }
+  .actions.svelte-1c0e6wu {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.6em;
+  }
+  .outcome.svelte-1c0e6wu {
+    color: var(--color-foreground-secondary, #666);
+  }
+  .outcome.failed.svelte-1c0e6wu {
+    color: var(--color-problematic, #b00);
+  }
+  .save.svelte-1c0e6wu {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35em;
+    padding: 0.25em 0.8em;
+    border: 1px solid var(--color-brand-primary, #4a7bb6);
+    border-radius: 0.25em;
+    background: var(--color-brand-primary, #4a7bb6);
+    color: var(--color-background-primary, #fff);
+    font: inherit;
+    cursor: pointer;
+  }
+  .save.svelte-1c0e6wu:disabled {
+    opacity: 0.45;
+    cursor: default;
+  }
+
+  .segmented.svelte-1tod34z {
+    display: inline-flex;
+    border: 1px solid var(--color-background-border, #c4c4c4);
+    border-radius: 0.25em;
+    overflow: hidden;
+  }
+  .segmented.svelte-1tod34z button:where(.svelte-1tod34z) {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35em;
+    padding: 0.25em 0.6em;
+    border: none;
+    background: var(--color-background-primary, #fff);
+    color: var(--color-foreground-primary, #222);
+    font: inherit;
+    font-size: 0.85em;
+    cursor: pointer;
+  }
+  .segmented.svelte-1tod34z button:where(.svelte-1tod34z) + button:where(.svelte-1tod34z) {
+    border-left: 1px solid var(--color-background-border, #c4c4c4);
+  }
+  .segmented.svelte-1tod34z button:where(.svelte-1tod34z):hover {
+    background: var(--color-background-hover, #f2f2f2);
+  }
+  .segmented.svelte-1tod34z button[aria-pressed='true']:where(.svelte-1tod34z) {
+    background: var(--color-brand-primary, #4a7bb6);
+    color: var(--color-background-primary, #fff);
+  }
+  .done.svelte-1tod34z {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35em;
+    padding: 0.25em 0.6em;
+    border: 1px solid var(--color-background-border, #c4c4c4);
+    border-radius: 0.25em;
+    background: var(--color-background-primary, #fff);
+    color: var(--color-foreground-primary, #222);
+    font: inherit;
+    font-size: 0.85em;
+    cursor: pointer;
+  }
+  .done.svelte-1tod34z:hover {
+    background: var(--color-background-hover, #f2f2f2);
+  }
+  .done.svelte-1tod34z:disabled {
+    opacity: 0.5;
+    cursor: default;
+  }
+  .notice.svelte-1tod34z {
+    font-size: 0.85em;
+    color: var(--color-foreground-secondary, #666);
+  }
+  .notice.failed.svelte-1tod34z,
+  .load-error.svelte-1tod34z {
+    color: var(--color-problematic, #b00);
+  }
+  .load-error.svelte-1tod34z {
+    margin: 0 0 0.5em;
+    font-size: 0.85em;
+  }
+  .crumbs.svelte-1tod34z {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.3em;
+    margin: 0 0 0.5em;
+    font-size: 0.9em;
+  }
+  .crumbs.svelte-1tod34z .sep {
+    opacity: 0.5;
+  }
+  .crumbs.svelte-1tod34z .here:where(.svelte-1tod34z) {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3em;
+    font-weight: 600;
+  }
+  .drill.svelte-1tod34z {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3em;
+    padding: 0;
+    border: none;
+    background: none;
+    color: var(--color-link, #2962ff);
+    font: inherit;
+    cursor: pointer;
+    text-align: left;
+  }
+  .drill.svelte-1tod34z:hover {
+    text-decoration: underline;
+  }
+  td.svelte-1tod34z .drill:where(.svelte-1tod34z) {
+    color: inherit;
+  }
+  td.svelte-1tod34z .drill:where(.svelte-1tod34z):hover {
+    color: var(--color-link, #2962ff);
+  }
+  .icon.svelte-1tod34z {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.1em;
+    border: none;
+    background: none;
+    color: var(--color-foreground-secondary, #666);
+    cursor: pointer;
+  }
+  tr.unit.svelte-1tod34z th:where(.svelte-1tod34z) {
+    padding-left: 1.6em;
+    font-weight: 500;
+  }
+  .heading.svelte-1tod34z {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4em;
+  }
+  .badge.svelte-1tod34z {
+    min-width: 1.4em;
+    padding: 0 0.4em;
+    border-radius: 0.7em;
+    background: var(--color-background-border, #ddd);
+    color: var(--color-foreground-primary, #222);
+    font-size: 0.85em;
+    font-weight: 400;
+    text-align: center;
+    font-variant-numeric: tabular-nums;
+  }
+  .id-cell.svelte-1tod34z {
+    display: flex;
+    align-items: center;
+    gap: 0.2em;
+  }
+  /* The opener and the decided mark keep their size; the id takes what
+     is left and is cut short there. */
+  .id-cell.svelte-1tod34z > .icon:where(.svelte-1tod34z),
+  .id-cell.svelte-1tod34z > .decided:where(.svelte-1tod34z),
+  .id-cell.svelte-1tod34z > .tangle {
+    flex: none;
+  }
+  .id-cell.svelte-1tod34z > .task-id {
+    flex: 1 1 auto;
+  }
+  .decided.svelte-1tod34z {
+    display: inline-flex;
+    vertical-align: middle;
+    color: var(--color-brand-primary, #4a7bb6);
+  }
+  .sort.svelte-1tod34z {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3em;
+    padding: 0;
+    border: none;
+    background: none;
+    color: inherit;
+    font: inherit;
+    font-weight: inherit;
+    text-align: left;
+    cursor: pointer;
+  }
+  .sort.svelte-1tod34z .idle {
+    opacity: 0.35;
+  }
+  .sort.svelte-1tod34z:hover .idle {
+    opacity: 0.8;
+  }
+  tr.open.svelte-1tod34z td:where(.svelte-1tod34z) {
+    border-bottom-color: transparent;
+  }
+/* tasks.css — the task list's columns, shared by both of its tables.
+
+   The plain table the directive renders and the list the tool draws over
+   it lay their columns out by the same rules, so they are written once,
+   here, against the `data-key` each cell carries, and apply to the plain
+   table before any script runs — on a page opened on its own no script
+   of this tool ever does.
+
+   Within the theme's text width, never past it: the table sits in a box
+   of its own with a maximum height, scrolls inside it both ways, and
+   holds the header row and the task column in place while it does.
+   Every column has a fixed width (`tasks.ts` `SIZES`, which TanStack
+   Table holds the drawn list to and which the plain table is given
+   below): the task id is compact, never wraps and is cut short with the
+   whole id on hover; free text wraps inside its width; symbols, dates and
+   states take what they need.
+
+   Theme-agnostic: colours come from the furo theme's variables where it
+   has them, with a plain fallback for any other theme. */
+
+.docstrap-tasks .table-wrapper {
+  /* The box's own width, for what must fit in it and not in the table:
+     an opened task's detail (below). */
+  container-type: inline-size;
+  max-width: 100%;
+  max-height: 85vh;
+  overflow: auto;
+  margin: 0 0 1em;
+  padding: 0;
+}
+
+.docstrap-tasks table {
+  table-layout: fixed;
+  margin: 0;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 0.85em;
+}
+
+.docstrap-tasks td,
+.docstrap-tasks th {
+  /* A width is the whole cell's, as TanStack counts it. */
+  box-sizing: border-box;
+  padding: 0.3em 0.5em;
+  vertical-align: top;
+  text-align: left;
+}
+/* Separate borders, because a collapsed border belongs to the table and
+   would scroll away from a cell held in place; so each cell draws only
+   its right and bottom edges, and two cells never draw one line twice. */
+.docstrap-tasks td,
+.docstrap-tasks th {
+  border-left: none;
+}
+
+/* The header row stays at the top of the box while the rows scroll. */
+.docstrap-tasks thead th {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  vertical-align: bottom;
+  background: var(--color-table-header-background, var(--color-background-secondary, #f8f9fb));
+}
+
+/* The task column stays at the left while the columns scroll. */
+.docstrap-tasks td[data-key='id'],
+.docstrap-tasks th[data-key='id'] {
+  position: sticky;
+  left: 0;
+  z-index: 1;
+  white-space: nowrap;
+  background: var(--color-background-primary, #fff);
+  box-shadow: inset -1px 0 0 var(--color-table-border, var(--color-background-border, #ddd));
+}
+.docstrap-tasks thead th[data-key='id'] {
+  z-index: 3;
+  background: var(--color-table-header-background, var(--color-background-secondary, #f8f9fb));
+}
+
+/* A group's heading spans the table and its name stays in view. */
+.docstrap-tasks tr.group th,
+.docstrap-tasks tr.unit th {
+  text-align: left;
+  background: var(--color-background-secondary, #f8f9fb);
+}
+.docstrap-tasks tr.group .heading,
+.docstrap-tasks tr.unit .heading {
+  position: sticky;
+  left: 0.5em;
+  max-width: calc(100cqi - 1.5em);
+}
+.docstrap-tasks tr.group .heading .name,
+.docstrap-tasks tr.unit .heading .name {
+  display: block;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* An opened task's detail spans the table, which may be far wider than
+   the box; it is held to the box's width and to its left edge, so it
+   reads without scrolling sideways. */
+.docstrap-tasks tr.detail-row td > * {
+  position: sticky;
+  left: 0;
+  max-width: calc(100cqi - 1em);
+}
+
+/* The id: one line, cut short, the whole of it on hover. In the drawn
+   list it shares its cell with the opener, and takes what is left. */
+.docstrap-tasks .task-id {
+  display: block;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.docstrap-tasks td[data-key='id'] > * {
+  max-width: 100%;
+}
+
+/* The link to the task's own section on the overlaps page: small, beside
+   the id it belongs to. */
+.docstrap-tasks .tangle {
+  font-size: 0.8em;
+  white-space: nowrap;
+}
+
+/* Free text wraps inside its column, breaking a long path if it must. */
+.docstrap-tasks .wrap {
+  display: block;
+  overflow-wrap: anywhere;
+}
+
+/* The plain table's widths: the same as `tasks.ts` `SIZES`, which the
+   drawn list is held to by TanStack. The table is their sum. */
+.docstrap-tasks-static table {
+  width: 1414px;
+}
+.docstrap-tasks-static th[data-key='id'] { width: 150px; }
+.docstrap-tasks-static th[data-key='title'] { width: 300px; }
+.docstrap-tasks-static th[data-key='unit'] { width: 190px; }
+.docstrap-tasks-static th[data-key='filed'] { width: 92px; }
+.docstrap-tasks-static th[data-key='last_activity'] { width: 92px; }
+.docstrap-tasks-static th[data-key='state'] { width: 84px; }
+.docstrap-tasks-static th[data-key='work'] { width: 56px; }
+.docstrap-tasks-static th[data-key='stuck'] { width: 56px; }
+.docstrap-tasks-static th[data-key='alignment'] { width: 80px; }
+.docstrap-tasks-static th[data-key='done_elsewhere'] { width: 80px; }
+.docstrap-tasks-static th[data-key='lifecycle_stage'] { width: 84px; }
+.docstrap-tasks-static th[data-key='recommendation'] { width: 150px; }
+
+.docstrap-tasks td[data-key='filed'],
+.docstrap-tasks td[data-key='last_activity'],
+.docstrap-tasks td[data-key='state'],
+.docstrap-tasks td[data-key='lifecycle_stage'],
+.docstrap-tasks td[data-key='project'] {
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+.docstrap-tasks td[data-key='work'],
+.docstrap-tasks td[data-key='stuck'],
+.docstrap-tasks td[data-key='alignment'],
+.docstrap-tasks td[data-key='done_elsewhere'] {
+  white-space: nowrap;
+  text-align: center;
+}
+
+/* The latest recommendation: the action, and under it when and by whom. */
+.docstrap-tasks td[data-key='recommendation'] .action,
+.docstrap-tasks td[data-key='recommendation'] .meta {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.docstrap-tasks td[data-key='recommendation'] .action {
+  font-weight: 600;
+}
+.docstrap-tasks td[data-key='recommendation'] .meta {
+  color: var(--color-foreground-secondary, #666);
+  font-size: 0.9em;
+  font-variant-numeric: tabular-nums;
+}
+
+@media print {
+  .docstrap-tasks .table-wrapper {
+    max-height: none;
+    overflow: visible;
+  }
+}

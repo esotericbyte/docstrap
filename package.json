@@ -1,0 +1,24 @@
+{
+  "name": "docstrap-tools",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Frontend build for docstrap's on-page tools. One Svelte bundle per tool, named from that tool's Python declaration.",
+  "scripts": {
+    "build": "node build-tools.mjs",
+    "test": "node --experimental-strip-types --test 'tests/**/*.test.ts'"
+  },
+  "devDependencies": {
+    "@lucide/svelte": "^1.51.0",
+    "@skeletonlabs/skeleton": "^5.0.1",
+    "@skeletonlabs/skeleton-svelte": "^5.0.1",
+    "@sveltejs/vite-plugin-svelte": "^5.0.0",
+    "@tailwindcss/vite": "^4.3.3",
+    "@tanstack/svelte-table": "^9.3.1",
+    "@zag-js/splitter": "1.43.0",
+    "@zag-js/svelte": "1.43.0",
+    "svelte": "^5.0.0",
+    "tailwindcss": "^4.3.3",
+    "vite": "^6.0.3"
+  }
+}

@@ -1,0 +1,19 @@
+/* docstrap.css — the base stylesheet shared by every docstrap tool.
+   Kept theme-agnostic so it works on top of Furo, Alabaster, or
+   whichever HTML theme the layout picks.
+
+   Each tool's own chrome is styled in its own directory, in
+   docstrap-<id>.css, named from its declaration. Nothing tool-specific
+   belongs here, and nothing here names a tool.
+
+   EXTENSION POINT — `.docstrap-chrome`. Every element a tool puts on
+   the page that is apparatus rather than document carries this class.
+   It is what lets anything reason about tool chrome as a category
+   without enumerating tools: the print rule below is the first such
+   consumer, and a future export or share path is the next. */
+
+@media print {
+  .docstrap-chrome {
+    display: none !important;
+  }
+}

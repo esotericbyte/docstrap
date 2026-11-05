@@ -1,0 +1,21 @@
+version: 1
+title: question-workspace
+exclude_dirs:
+  - held
+
+projects:
+  - path: alpha
+    title: Alpha
+    layout: markdown
+    sources:
+      - {path: docs, role: documentation}
+      - {path: docs/drafts, role: draft}
+  - path: beta
+    title: Beta
+    layout: markdown
+    docs_root: docs
+
+related_directories:
+  - path: notes
+    title: Workspace notes
+    layout: markdown

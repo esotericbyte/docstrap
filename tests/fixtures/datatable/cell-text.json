@@ -1,0 +1,16 @@
+[
+  {"value": null, "text": ""},
+  {"value": "", "text": ""},
+  {"value": "plain", "text": "plain"},
+  {"value": 7, "text": "7"},
+  {"value": 2.0, "text": "2"},
+  {"value": 2.5, "text": "2.5"},
+  {"value": true, "text": "true"},
+  {"value": false, "text": "false"},
+  {"value": ["fm-1", "fm-2"], "text": "fm-1, fm-2"},
+  {"value": [], "text": ""},
+  {"value": "code", "symbols": {"code": "🔨", "docs": "📝"}, "text": "🔨"},
+  {"value": "other", "symbols": {"code": "🔨"}, "text": "other"},
+  {"value": "no", "symbols": {"no": ""}, "text": ""},
+  {"value": ["code", "docs"], "symbols": {"code": "🔨", "docs": "📝"}, "text": "🔨 📝"}
+]

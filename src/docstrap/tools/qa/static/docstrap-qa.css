@@ -1,0 +1,88 @@
+
+  .docstrap-questions-answer.svelte-cpvpk2 {
+    display: block;
+    width: 100%;
+    min-height: 3.5em;
+    padding: 0.4em 0.6em;
+    border: 1px solid #c4c4c4;
+    border-radius: 0.2em;
+    font-family: inherit;
+    font-size: 0.95em;
+    resize: vertical;
+    box-sizing: border-box;
+  }
+  .docstrap-questions-controls.svelte-cpvpk2 {
+    margin-top: 0.5em;
+    display: flex;
+    align-items: center;
+    gap: 0.75em;
+  }
+  .docstrap-questions-submit.svelte-cpvpk2 {
+    padding: 0.3em 0.9em;
+    border: 1px solid #4a7bb6;
+    background: #4a7bb6;
+    color: white;
+    border-radius: 0.2em;
+    cursor: pointer;
+    font-size: 0.9em;
+  }
+  .docstrap-questions-submit.svelte-cpvpk2:hover { background: #3a6ba6; }
+  .docstrap-questions-submit.svelte-cpvpk2:disabled { opacity: 0.6; cursor: default; }
+
+  .docstrap-questions-status.svelte-cpvpk2 { font-size: 0.85em; }
+  [data-kind='ok'].svelte-cpvpk2      { color: #1b5e2b; }
+  [data-kind='error'].svelte-cpvpk2   { color: #a02020; }
+  [data-kind='pending'].svelte-cpvpk2 { color: #7a5b10; }
+
+  @media (prefers-color-scheme: dark) {
+    .docstrap-questions-answer.svelte-cpvpk2 {
+      background: #16202b;
+      color: #e0e0e0;
+      border-color: #364252;
+    }
+  }
+/* qa.css — the parts of the question tool's styling that cannot be
+   scoped to a component, because they apply to markup the Sphinx
+   directive rendered rather than markup a component renders.
+
+   Everything the AnswerForm component draws is styled in that
+   component, scoped. What is left here is the author's callout and the
+   launcher's visibility gate.
+
+   Theme-agnostic so it works on top of Furo, Alabaster, or whichever
+   HTML theme the layout picks. */
+
+.docstrap-questions {
+  margin: 1em 0;
+  padding: 0.75em 1em;
+  border: 1px solid #d4d4d4;
+  border-left: 4px solid #4a7bb6;
+  border-radius: 0.25em;
+  background: #f8fafc;
+}
+.docstrap-questions-prompt {
+  margin: 0;
+  font-weight: 500;
+}
+
+/* The launcher's visibility seam. The author's prompt is document
+   content and always reads; the answering apparatus is this tool's
+   chrome, so it is present only while the launcher says the tool is
+   showing. With the tool hidden a question reads as a plain callout.
+
+   This gate is on the directive's own markup and must hold before any
+   script runs, so it is a global rule by necessity, not by habit. */
+.docstrap-questions-form {
+  display: none;
+  margin-top: 0.5em;
+}
+body.docstrap-show-qa .docstrap-questions-form {
+  display: block;
+}
+
+@media (prefers-color-scheme: dark) {
+  .docstrap-questions {
+    background: #202832;
+    border-color: #364252;
+  }
+}

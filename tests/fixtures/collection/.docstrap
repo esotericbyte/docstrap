@@ -1,0 +1,4 @@
+version: 1
+title: strapdance-fixture
+layout: markdown
+docs_root: docs

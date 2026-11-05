@@ -1,0 +1,73 @@
+
+  .answer-note.svelte-1gb7qf {
+    margin: 0.5em 0 1.25em;
+    padding: 0.5em 0.9em;
+    border-left: 3px solid;
+    border-radius: 0 0.2em 0.2em 0;
+    font-size: 0.94em;
+  }
+  .answer-note.answered.svelte-1gb7qf {
+    border-left-color: #2e7d43;
+    background: rgba(46, 125, 67, 0.07);
+  }
+  .answer-note.open.svelte-1gb7qf {
+    border-left-color: #b08318;
+    background: rgba(176, 131, 24, 0.07);
+  }
+  .head.svelte-1gb7qf {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.7em;
+    margin: 0;
+    font-size: 0.82em;
+  }
+  .mark.svelte-1gb7qf {
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    font-weight: 700;
+  }
+  .mark.answered.svelte-1gb7qf {
+    color: #2e7d43;
+  }
+  .mark.open.svelte-1gb7qf {
+    color: #8a6412;
+  }
+  .when.svelte-1gb7qf,
+  .who.svelte-1gb7qf,
+  .revised.svelte-1gb7qf {
+    opacity: 0.7;
+    font-variant-numeric: tabular-nums;
+  }
+  .prose.svelte-1gb7qf {
+    margin-top: 0.45em;
+    /* The answer is markdown someone typed. It is shown as written,
+       newlines and all, rather than re-parsed: this tool renders a
+       decision, and quietly reinterpreting one as markup is a way to
+       change what it says. */
+    white-space: pre-wrap;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    .answer-note.answered.svelte-1gb7qf {
+      background: rgba(127, 211, 155, 0.09);
+      border-left-color: #7fd39b;
+    }
+    .answer-note.open.svelte-1gb7qf {
+      background: rgba(224, 194, 122, 0.09);
+      border-left-color: #e0c27a;
+    }
+    .mark.answered.svelte-1gb7qf {
+      color: #7fd39b;
+    }
+    .mark.open.svelte-1gb7qf {
+      color: #e0c27a;
+    }
+  }
+
+  @media print {
+    .answer-note.svelte-1gb7qf {
+      border-left-color: #666;
+      background: none;
+    }
+  }

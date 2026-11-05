@@ -1,0 +1,106 @@
+/* docstrap-launcher.css — the single visibility control.
+
+   One control, one corner. The per-widget floating buttons that used to
+   compete for this space are gone. When the launcher is dismissed none
+   of this is on the page at all. */
+
+.docstrap-launcher {
+  position: fixed;
+  right: 1em;
+  bottom: 1em;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.4em;
+  font-size: 0.85em;
+}
+
+.docstrap-launcher-button {
+  padding: 0.45em 0.85em;
+  border: 1px solid #4a7bb6;
+  background: white;
+  color: #4a7bb6;
+  border-radius: 0.25em;
+  cursor: pointer;
+  font-size: 1em;
+  font-family: inherit;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+}
+.docstrap-launcher-button:hover { background: #eef4fa; }
+.docstrap-launcher-button-active {
+  background: #4a7bb6;
+  color: white;
+}
+
+.docstrap-launcher-panel {
+  min-width: 13em;
+  padding: 0.6em 0.8em;
+  background: white;
+  border: 1px solid #c4c4c4;
+  border-radius: 0.3em;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+.docstrap-launcher-panel[hidden] { display: none; }
+
+.docstrap-launcher-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3em;
+}
+
+.docstrap-launcher-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  cursor: pointer;
+  min-width: 0;
+}
+.docstrap-launcher-row span {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.docstrap-launcher-launch {
+  width: 100%;
+  padding: 0.3em 0.6em;
+  border: 1px solid #4a7bb6;
+  background: #4a7bb6;
+  color: white;
+  border-radius: 0.2em;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 1em;
+  text-align: left;
+}
+.docstrap-launcher-launch:hover { background: #3a6ba6; }
+
+.docstrap-launcher-footer {
+  margin-top: 0.6em;
+  padding-top: 0.5em;
+  border-top: 1px solid #e2e2e2;
+  display: flex;
+  gap: 0.5em;
+  justify-content: space-between;
+}
+.docstrap-launcher-footer button {
+  padding: 0.25em 0.55em;
+  border: 1px solid #c4c4c4;
+  background: transparent;
+  color: inherit;
+  border-radius: 0.2em;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 0.9em;
+}
+.docstrap-launcher-footer button:hover { background: #eef4fa; }
+
+@media (prefers-color-scheme: dark) {
+  .docstrap-launcher-button { background: #16202b; color: #8ab4e8; border-color: #364252; }
+  .docstrap-launcher-button:hover { background: #202832; }
+  .docstrap-launcher-button-active { background: #4a7bb6; color: white; }
+  .docstrap-launcher-panel { background: #16202b; color: #e0e0e0; border-color: #364252; }
+  .docstrap-launcher-footer { border-top-color: #364252; }
+  .docstrap-launcher-footer button { border-color: #364252; }
+  .docstrap-launcher-footer button:hover { background: #263242; }
+}

@@ -1,0 +1,17 @@
+<!doctype html>
+<!-- The viewer shell's page. Built by build-tools.mjs into
+     ../static/ and copied into a site's root by `docstrap build`, beside
+     the _viewer/manifest.json that says what the site contains. -->
+<html lang="en" data-theme="cerberus">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>docstrap viewer</title>
+    <!-- No favicon of its own; this stops the browser asking for one. -->
+    <link rel="icon" href="data:," />
+  </head>
+  <body>
+    <div id="docstrap-viewer"></div>
+    <script type="module" src="./main.ts"></script>
+  </body>
+</html>

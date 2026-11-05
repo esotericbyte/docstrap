@@ -1,0 +1,53 @@
+/* app.css — the shell's one global stylesheet.
+ *
+ * Tailwind and Skeleton exist on this page and nowhere else. The pages
+ * the shell frames are separate documents, so nothing here reaches furo
+ * and nothing of furo's reaches here.
+ *
+ * Sources are named rather than detected: the shell's own components,
+ * and Skeleton's, whose classes Tailwind must see to generate. The
+ * qapanels components the shell hosts style themselves with scoped CSS
+ * and use no utility class, so they are deliberately not a source.
+ */
+@import 'tailwindcss' source(none);
+@import '@skeletonlabs/skeleton';
+@import '@skeletonlabs/skeleton-svelte';
+@import '@skeletonlabs/skeleton/themes/cerberus';
+
+@source './';
+@source '../../../../node_modules/@skeletonlabs/skeleton-svelte/dist';
+
+/* Skeleton's utilities are global class names, and the qapanels
+ * components this page hosts use plain class names of their own. Where
+ * the two meet, Skeleton's rule lands on the hosted component: its
+ * `label` utility (`width: 100%`) took the whole row of every question in
+ * the list and pushed the question text out of sight. Utilities are
+ * generated only for names found in a source, so a name the hosted
+ * components use is kept from being generated here. `test_viewer.py`
+ * fails if any unscoped rule in the built stylesheet names one. */
+@source not inline('label');
+
+/* The navigator's indent. Skeleton steps each level of a
+ * tree view six spacing units, which at the drawer's opening width gave
+ * the guides a large share of the row and left the titles little room.
+ * This steps three. The offsets keep Skeleton's own geometry: a level's
+ * guide runs under its folder's chevron, and a document's icon lines up
+ * with its sibling folders' icons. Skeleton's rules are in the base layer,
+ * so these win without raising specificity. */
+@layer components {
+  [data-scope='tree-view'] {
+    --tree-step: calc(var(--spacing) * 3);
+
+    &[data-part='branch-control'] {
+      padding-inline-start: calc((var(--depth) - 1) * var(--tree-step) + var(--spacing) * 2);
+    }
+
+    &[data-part='item'] {
+      padding-inline-start: calc((var(--depth) - 1) * var(--tree-step) + var(--spacing) * 8);
+    }
+
+    &[data-part='branch-indent-guide'] {
+      left: calc((var(--depth) - 1) * var(--tree-step) + var(--spacing) * 4);
+    }
+  }
+}
