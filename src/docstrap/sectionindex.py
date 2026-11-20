@@ -3,8 +3,8 @@
 A docs tree is directories, and a directory with no landing page is a
 hole in the sidebar. docstrap composes a section page for every one of
 them — a heading and a listing of that directory's children — with no
-exception for a directory that holds an `index.md`, because a docs tree
-is not allowed to hold one. See :data:`REFUSED_INDEX_FILES`.
+exception for a directory that holds an `index.md`, because one in a
+docs tree is ignored. See :data:`REFUSED_INDEX_FILES`.
 
 **A section page is never markdown.** An index is HTML only, and since
 the output is HTML no intermediate markdown step is kept in the build
@@ -118,10 +118,10 @@ def is_document_file(
     """Whether a file of this name is published as a page of its own.
 
     The companion to :func:`is_section_dir`, and the second half of what
-    the build indexes. An `index.md` is excluded because it is not
-    allowed to be in a docs tree at all — see
-    :data:`REFUSED_INDEX_FILES`. It once was excluded for the opposite
-    reason, that it *became* the section's landing.
+    the build indexes. An `index.md` is excluded because one in a docs
+    tree is ignored — see :data:`REFUSED_INDEX_FILES`. It once was
+    excluded for the opposite reason, that it *became* the section's
+    landing.
     """
     if _is_hidden(name):
         return False

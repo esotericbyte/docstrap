@@ -45,13 +45,14 @@ reached by the mirrored tree, is brought in as one further document —
 see _attach_readme. It joins the Docs listing alongside everything
 docs_dir yields; it does not become or replace the landing page.
 
-**An `index.md` in the docs tree is not brought into the build.** A
-documentation tree holds no index.md at all, so one is not mirrored,
-not indexed and not published, and no directory holding one is excused the page docstrap composes for it. It is left
-exactly where it is — a build reads a project and writes nothing into
-one — and named on the landing page and in the build result, because the
-way this defect survived its first three months was that nothing said
-the files were there.
+**An `index.md` in the docs tree is ignored.** It is not mirrored, not
+indexed and not published, and no directory holding one is excused the
+page docstrap composes for it. It is left exactly where it is — a build
+reads a project and writes nothing into one. Ignoring it is not an
+error, so the build's output says nothing about it: not the landing
+page, and not the build result. The files are named in one warning in
+the error log (:mod:`docstrap.errorlog`) for whoever wants to clear them
+out.
 """
 from __future__ import annotations
 
@@ -60,7 +61,15 @@ import shutil
 import subprocess
 from pathlib import Path
 
-from docstrap import fileindex, metadata, paths, plugins, sectionindex, strapdance
+from docstrap import (
+    errorlog,
+    fileindex,
+    metadata,
+    paths,
+    plugins,
+    sectionindex,
+    strapdance,
+)
 from docstrap.layouts.base import BuildResult, LayoutError
 from docstrap.scan import ScannedProject
 from docstrap.settings import ResolvedSource
@@ -280,9 +289,9 @@ def write_conf_py(
     )
 
 
-# An `index.md` in a documentation tree is not allowed to be there, so
-# the mirror does not bring one into the build and no directory is
-# excused a composed page for holding one. Owned by
+# An `index.md` in a documentation tree is ignored: the mirror does not
+# bring one into the build and no directory is excused a composed page
+# for holding one. Owned by
 # `docstrap.sectionindex`; re-exported under the name this module uses.
 _REFUSED_INDEX_FILES = sectionindex.REFUSED_INDEX_FILES
 
@@ -401,11 +410,10 @@ def _mirror_tree(
 
     ``refused`` collects the `index.md` files found on the way. One is
     not linked into the build, so it is not published and cannot shadow
-    the page docstrap composes for its directory — a docs tree is not
-    allowed to hold one at all. It is **not** deleted and not touched:
-    this walk reads a project and writes nothing into one. The build
-    reports what it collected here, because the way this went wrong the
-    first time was silently.
+    the page docstrap composes for its directory. It is **not** deleted
+    and not touched: this walk reads a project and writes nothing into
+    one. The build names what it collected here in the error log, and
+    nowhere in its output.
 
     ``skip_names`` applies at the top of ``source`` only; ``skip_paths``
     is real paths skipped at any depth — another declared source lying
@@ -678,21 +686,22 @@ def _root_role(project: ScannedProject) -> str:
     )
 
 
-def _refused_note(refused: list[Path], docs_dir: Path) -> str:
-    """What the landing page says about index files found in the tree.
+def _log_ignored_indexes(project: ScannedProject, ignored: list[Path]) -> None:
+    """Name the ignored index files in the error log, and only there.
 
-    Reported rather than repaired, for the same reason a missing
-    docs_root is: deleting somebody's file is a write into their
-    project. Named individually, because the way this defect survived
-    was that nothing ever said the files were there.
+    Not on the landing page and not in the build result: ignoring a file
+    is not an error, and a notice listing every one of them stood above
+    the page's real listing and beside the project on the store's page.
+    Not repaired either — deleting somebody's file is a write into their
+    project.
     """
-    if not refused:
-        return ""
-    names = ", ".join(sorted(_relative_display(p, docs_dir) for p in refused))
-    return (
-        f"Not published: {names}. An index file in a documentation tree is not "
-        f"allowed — docstrap composes every section page during the build and "
-        f"writes none into a project. Delete it; nothing here will."
+    if not ignored:
+        return
+    docs_dir = project.docs_dir or project.root_dir
+    names = ", ".join(sorted(_relative_display(p, docs_dir) for p in ignored))
+    errorlog.warn(
+        f"{project.slug}: ignored {len(ignored)} index file(s) in the docs "
+        f"tree, not published and not touched: {names}"
     )
 
 
@@ -704,17 +713,12 @@ def _relative_display(path: Path, docs_dir: Path) -> str:
         return str(path)
 
 
-def _root_note(
-    project: ScannedProject,
-    docs_dir_missing: bool,
-    refused: list[Path] | None = None,
-) -> str:
+def _root_note(project: ScannedProject, docs_dir_missing: bool) -> str:
     """What the landing page says about the project's own state.
 
-    Two things: a declared docs_root that is not there, and index files
-    found inside one. Both are reported rather than repaired, because
-    creating or deleting a file in the project is the thing a build does
-    not do.
+    No sources, or a declared docs_root that is not there. Reported
+    rather than repaired, because creating a file in the project is the
+    thing a build does not do.
     """
     notes = []
     if not project.sources:
@@ -729,9 +733,6 @@ def _root_note(
             f"exist. Create it, add markdown, and rebuild — docstrap reads a project "
             f"and does not create directories in one."
         )
-    refused_note = _refused_note(refused or [], project.docs_dir or project.root_dir)
-    if refused_note:
-        notes.append(refused_note)
     return " ".join(notes)
 
 
@@ -789,9 +790,9 @@ def build(
 
     # Mirror each source into scratch at its mount: directories the build
     # makes, files symlinked to the real documents. An `index.md` is the
-    # one file not brought across — a docs tree is not allowed to hold
-    # one, so it is neither published nor read as that directory's
-    # landing page. It is collected and reported, never touched.
+    # one file not brought across: it is ignored, so it is neither
+    # published nor read as that directory's landing page. It is
+    # collected for the error log, never touched.
     #
     # At the top of the root source, every mount's first step is skipped:
     # docstrap owns those slots and the sources behind them are mirrored
@@ -851,10 +852,11 @@ def build(
             skip_paths=skip_paths,
         )
 
-    # After both mirrors, so the landing page's note can name every index
-    # file they refused, and before anything is read, so Sphinx has its
+    # After both mirrors, so the error log can name every index file they
+    # ignored, and before anything is read, so Sphinx has its
     # configuration. The project's own `conf.py` was kept out of the
     # mirror for this: the write below must land on a build file.
+    _log_ignored_indexes(project, refused_indexes)
     index_db = paths.metadata_db_path()
     write_conf_py(
         scratch_dir,
@@ -862,7 +864,7 @@ def build(
         project.exclude_dirs,
         project.slug,
         index_db=index_db,
-        root_note=_root_note(project, docs_dir_missing, refused_indexes),
+        root_note=_root_note(project, docs_dir_missing),
         viewer_base=viewer.site_base(out_dir / project.slug, site_root),
         draft_mount=_draft_mount(contributed, project.sources),
     )
@@ -904,17 +906,6 @@ def build(
         notes += "; no sources stated"
     elif docs_dir_missing:
         notes += f"; docs_root `{_docs_dir_display(project)}` does not exist"
-    if refused_indexes:
-        named = ", ".join(
-            sorted(
-                _relative_display(p, project.docs_dir or project.root_dir)
-                for p in refused_indexes
-            )
-        )
-        notes += (
-            f"; {len(refused_indexes)} index file(s) in the docs tree not published "
-            f"and not touched: {named}"
-        )
     return BuildResult(
         project_slug=project.slug,
         html_root=html_root,
