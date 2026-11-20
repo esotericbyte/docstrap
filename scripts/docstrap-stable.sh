@@ -23,12 +23,16 @@ Usage:
 
 REF is a ref of this repository (docstrap). Installs the stable docstrap
 command with:
-  uv tool install --force "docstrap @ git+file://<repo>@<ref>"
+  uv tool install --force "docstrap @ git+file://<repo>@<commit>"
 
-When PROMDANCE_SOURCE is set, promdance, docstrap's plugin, joins the same
-tool environment and its command goes on PATH:
-  uv tool install --force "docstrap @ git+file://<repo>@<ref>" \
+where <commit> is the commit REF names. When PROMDANCE_SOURCE is set,
+promdance, docstrap's plugin, joins the same tool environment and its
+command goes on PATH:
+  uv tool install --force --no-sources "docstrap @ git+file://<repo>@<commit>" \
     --with-executables-from "promdance @ $PROMDANCE_SOURCE"
+
+--no-sources sets aside the [tool.uv.sources] pin promdance carries for
+docstrap, so promdance runs against the docstrap REF names.
 
 PROMDANCE_SOURCE is a uv direct-reference URL, for example
   git+file:///path/to/checkout@<ref>#subdirectory=packages/promdance
@@ -92,13 +96,19 @@ print_on_path() {
 
 install_stable() {
   local ref="$1"
-  local docstrap_spec="docstrap @ git+file://$REPO_ROOT@$ref"
+  local commit
+  # uv fetches a branch, tag, or commit, but not HEAD or a relative ref
+  # such as main~1, so it is given the commit REF names.
+  commit="$(git -C "$REPO_ROOT" rev-parse --verify "${ref}^{commit}")"
+  local docstrap_spec="docstrap @ git+file://$REPO_ROOT@$commit"
   local with=()
   if [[ -n "$PROMDANCE_SOURCE" ]]; then
-    echo "installing stable docstrap from ref: $ref, with promdance from $PROMDANCE_SOURCE"
-    with=(--with-executables-from "promdance @ $PROMDANCE_SOURCE")
+    echo "installing stable docstrap from ref: $ref ($commit), with promdance from $PROMDANCE_SOURCE"
+    # Promdance pins docstrap in its own [tool.uv.sources]; the install is
+    # of the docstrap REF names, so that pin is set aside.
+    with=(--no-sources --with-executables-from "promdance @ $PROMDANCE_SOURCE")
   else
-    echo "installing stable docstrap from ref: $ref (PROMDANCE_SOURCE unset: no plugin)"
+    echo "installing stable docstrap from ref: $ref ($commit) (PROMDANCE_SOURCE unset: no plugin)"
   fi
   uv tool install --force "$docstrap_spec" "${with[@]}"
   echo
