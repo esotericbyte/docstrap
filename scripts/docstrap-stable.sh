@@ -2,18 +2,16 @@
 # Install or remove the stable docstrap PATH command.
 #
 # Dev remains:    uv run docstrap
-# Stable becomes: ~/.local/bin/docstrap, installed by uv tool from a pinned
-# git ref, isolated from the live working tree. Docstrap comes from its own
-# repository, at the commit this repository's promdance pins. Promdance,
-# docstrap's plugin, comes from this repository and goes into the same tool
-# environment so docstrap can load it, and its own command is exposed beside
-# docstrap's (plan 0002 §6).
+# Stable becomes: ~/.local/bin/docstrap, installed by uv tool from a git ref
+# of this repository, isolated from the live working tree. Promdance,
+# docstrap's plugin, is not part of this repository; when PROMDANCE_SOURCE
+# names it, it goes into the same tool environment so docstrap can load it,
+# and its own command is exposed beside docstrap's (plan 0002 §6).
 set -euo pipefail
 
 REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-DOCSTRAP_REPO="https://github.com/esotericbyte/docstrap"
-PLUGIN_SUBDIR="packages/promdance"
 TOOL_NAME="docstrap"
+PROMDANCE_SOURCE="${PROMDANCE_SOURCE:-}"
 RESOLVED_REF=""
 
 usage() {
@@ -23,15 +21,17 @@ Usage:
   scripts/docstrap-stable.sh remove
   scripts/docstrap-stable.sh --help
 
-REF is a ref of this repository (platformshoes). Installs the stable
-docstrap command with:
-  uv tool install --force "docstrap @ git+https://github.com/esotericbyte/docstrap@<pin>" \
-    --with-executables-from "promdance @ git+file://<repo>@<ref>#subdirectory=packages/promdance"
+REF is a ref of this repository (docstrap). Installs the stable docstrap
+command with:
+  uv tool install --force "docstrap @ git+file://<repo>@<ref>"
 
-where <pin> is the docstrap commit that packages/promdance/pyproject.toml
-pins at REF ([tool.uv.sources] docstrap rev). That puts promdance, docstrap's
-plugin, in docstrap's tool environment and its command on PATH. A ref from
-before docstrap left this repository has no such pin and is refused.
+When PROMDANCE_SOURCE is set, promdance, docstrap's plugin, joins the same
+tool environment and its command goes on PATH:
+  uv tool install --force "docstrap @ git+file://<repo>@<ref>" \
+    --with-executables-from "promdance @ $PROMDANCE_SOURCE"
+
+PROMDANCE_SOURCE is a uv direct-reference URL, for example
+  git+file:///path/to/checkout@<ref>#subdirectory=packages/promdance
 
 The workspace development command is unchanged:
   uv run docstrap
@@ -39,9 +39,8 @@ The workspace development command is unchanged:
 Stable installs are for dogfooding a pinned repository ref through
 ~/.local/bin/docstrap without running the current working copy.
 
-If REF is omitted, the script uses the most recent git tag that contains
-packages/promdance. If no such tag exists yet, it refuses and asks for an
-explicit ref or a real tag.
+If REF is omitted, the script uses the most recent git tag. If no tag
+exists yet, it refuses and asks for an explicit ref or a real tag.
 
 For isolated validation, set UV_TOOL_DIR, UV_TOOL_BIN_DIR, and PATH before
 running this script. The normal dogfood path needs no extra variables.
@@ -53,15 +52,9 @@ die() {
   exit 2
 }
 
-latest_promdance_tag() {
-  local tag
-  while IFS= read -r tag; do
-    if git -C "$REPO_ROOT" cat-file -e "$tag:$PLUGIN_SUBDIR/pyproject.toml" 2>/dev/null; then
-      printf '%s\n' "$tag"
-      return 0
-    fi
-  done < <(git -C "$REPO_ROOT" for-each-ref --sort=-creatordate --format='%(refname:short)' refs/tags)
-  return 1
+latest_tag() {
+  git -C "$REPO_ROOT" for-each-ref --sort=-creatordate --count=1 \
+    --format='%(refname:short)' refs/tags | grep .
 }
 
 resolve_ref() {
@@ -69,28 +62,15 @@ resolve_ref() {
   if [[ -n "$requested" ]]; then
     git -C "$REPO_ROOT" rev-parse --verify --quiet "${requested}^{commit}" >/dev/null \
       || die "ref not found: $requested"
-    git -C "$REPO_ROOT" cat-file -e "$requested:$PLUGIN_SUBDIR/pyproject.toml" 2>/dev/null \
-      || die "ref '$requested' does not contain $PLUGIN_SUBDIR"
     RESOLVED_REF="$requested"
     return 0
   fi
 
-  if RESOLVED_REF="$(latest_promdance_tag)"; then
+  if RESOLVED_REF="$(latest_tag)"; then
     return 0
   fi
 
-  die "no tag containing $PLUGIN_SUBDIR exists yet; pass an explicit git ref, or tag a release"
-}
-
-# The docstrap commit promdance pins at REF, read from its pyproject.toml.
-docstrap_pin() {
-  local ref="$1"
-  git -C "$REPO_ROOT" show "$ref:$PLUGIN_SUBDIR/pyproject.toml" | python3 -c '
-import sys, tomllib
-source = tomllib.load(sys.stdin.buffer).get("tool", {}).get("uv", {}).get("sources", {}).get("docstrap", {})
-if source.get("git") and source.get("rev"):
-    print(source["rev"])
-'
+  die "no tag exists yet; pass an explicit git ref, or tag a release"
 }
 
 print_on_path() {
@@ -112,15 +92,15 @@ print_on_path() {
 
 install_stable() {
   local ref="$1"
-  local repo_url="file://$REPO_ROOT"
-  local pin
-  pin="$(docstrap_pin "$ref")"
-  [[ -n "$pin" ]] \
-    || die "ref '$ref' pins no docstrap commit in $PLUGIN_SUBDIR/pyproject.toml; it predates docstrap's own repository"
-
-  echo "installing stable docstrap $pin with promdance from ref: $ref"
-  uv tool install --force "docstrap @ git+$DOCSTRAP_REPO@$pin" \
-    --with-executables-from "promdance @ git+$repo_url@$ref#subdirectory=$PLUGIN_SUBDIR"
+  local docstrap_spec="docstrap @ git+file://$REPO_ROOT@$ref"
+  local with=()
+  if [[ -n "$PROMDANCE_SOURCE" ]]; then
+    echo "installing stable docstrap from ref: $ref, with promdance from $PROMDANCE_SOURCE"
+    with=(--with-executables-from "promdance @ $PROMDANCE_SOURCE")
+  else
+    echo "installing stable docstrap from ref: $ref (PROMDANCE_SOURCE unset: no plugin)"
+  fi
+  uv tool install --force "$docstrap_spec" "${with[@]}"
   echo
   print_on_path
 }

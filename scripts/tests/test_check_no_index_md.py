@@ -30,14 +30,17 @@ def _run_check(*args: str) -> subprocess.CompletedProcess:
     )
 
 
-def test_no_index_file_is_committed_into_a_docs_tree():
-    """The check, run over this repository, as a commit hook would.
+def _git_add_all(repo: Path) -> None:
+    """Make ``repo`` a git repository tracking everything in it."""
+    for command in (
+        ["git", "init", "-q"],
+        ["git", "add", "-A"],
+    ):
+        subprocess.run(command, cwd=repo, check=True, capture_output=True)
 
-    Fourteen were tracked here when the captain ruled; nine of them were
-    in documentation trees and are gone. The five the check reports
-    without enforcing are `docs-site/`, a hand-maintained Sphinx source
-    root whose `index.md` is its master document.
-    """
+
+def test_no_index_file_is_committed_into_a_docs_tree():
+    """The check, run over this repository, as a commit hook would."""
     if not (REPO_ROOT / ".git").exists():
         pytest.skip(f"{REPO_ROOT} is not a git checkout")
 
@@ -46,18 +49,24 @@ def test_no_index_file_is_committed_into_a_docs_tree():
     assert "no index file in any documentation tree" in result.stdout
 
 
-def test_the_check_says_why_a_file_is_exempt_and_not_merely_that_it_is():
+def test_the_check_says_why_a_file_is_exempt_and_not_merely_that_it_is(
+    tmp_path: Path,
+):
     """A bare count invites deletion on a literal reading of the rule.
 
     The exemption is the one place the captain's *"At all. period."* can
     be read two ways, so the output carries the distinction it turns on
     — a master document against a generated index — and a reader does
-    not have to find the spec to know which they are looking at.
+    not have to find the spec to know which they are looking at. This
+    repository carries no exempt file, so a Sphinx source root's master
+    document is made here for the check to explain.
     """
-    if not (REPO_ROOT / ".git").exists():
-        pytest.skip(f"{REPO_ROOT} is not a git checkout")
+    repo = tmp_path / "repo"
+    (repo / "site").mkdir(parents=True)
+    (repo / "site" / "index.md").write_text("# The site\n", encoding="utf-8")
+    _git_add_all(repo)
 
-    stdout = _run_check(str(REPO_ROOT)).stdout
+    stdout = _run_check(str(repo)).stdout
     reason = next(
         line for line in stdout.splitlines() if "not enforced" in line
     )
@@ -87,11 +96,7 @@ def test_the_check_fails_on_a_committed_index_file(tmp_path: Path):
     (repo / "site").mkdir()
     (repo / "site" / "index.md").write_text("# The site\n", encoding="utf-8")
 
-    for command in (
-        ["git", "init", "-q"],
-        ["git", "add", "-A"],
-    ):
-        subprocess.run(command, cwd=repo, check=True, capture_output=True)
+    _git_add_all(repo)
 
     result = _run_check(str(repo))
     assert result.returncode == 1, result.stdout + result.stderr

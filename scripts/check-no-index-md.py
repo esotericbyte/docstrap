@@ -13,7 +13,7 @@ own scratch tree, and renders it straight to HTML. A committed `index.md`
 in a docs tree is therefore never needed and never honoured: the build
 does not publish one. This is the other half of that rule — the build
 cannot write one, and this stops one arriving by hand.
-`packages/docstrap/docs/spec.md` §7.8.3 is the rule; §7.8.1 is how
+`docs/spec.md` §7.8.3 in the docstrap repository is the rule; §7.8.1 is how
 fifty-five of them reached five repositories.
 
 Self-contained on purpose — git and the standard library, with PyYAML
