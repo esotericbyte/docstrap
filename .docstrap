@@ -1,0 +1,6 @@
+version: 1
+title: docstrap
+short: Documentation publishing tool (this project)
+icon: 📚
+layout: markdown
+docs_root: docs
