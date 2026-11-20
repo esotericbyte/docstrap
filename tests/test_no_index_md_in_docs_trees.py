@@ -19,7 +19,6 @@ from __future__ import annotations
 import os
 from pathlib import Path
 
-
 from docstrap import errorlog
 from docstrap.config import load
 from docstrap.layouts import markdown
