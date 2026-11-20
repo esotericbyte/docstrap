@@ -348,29 +348,6 @@ def test_an_index_in_the_tree_does_not_become_the_landing_page(
     assert (store / PROJECT_PATH / "docs" / "index.md").is_file()
 
 
-def test_a_refused_index_is_named_rather_than_dropped_in_silence(
-    tmp_path: Path, user_dirs: Path
-):
-    """Silence is how the pollution survived; every refusal is reported.
-
-    On the landing page, where a reader of the site sees it, and in the
-    build result, where the person who ran the build does.
-    """
-    store = _store(
-        tmp_path,
-        TREE | {
-            f"{PROJECT_PATH}/docs/index.md": "# Widget\n",
-            f"{PROJECT_PATH}/docs/specs/index.md": "# Specs\n",
-        },
-    )
-    result = markdown.build(_one(store), tmp_path / "out")
-
-    assert "index.md, specs/index.md" in result.notes
-    assert "not published" in result.notes and "not touched" in result.notes
-    landing = (result.html_root / "index.html").read_text(encoding="utf-8")
-    assert "Not published: index.md, specs/index.md" in landing
-
-
 # --- a missing docs directory ------------------------------------------------
 
 

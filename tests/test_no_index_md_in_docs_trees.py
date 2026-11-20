@@ -20,6 +20,7 @@ import os
 from pathlib import Path
 
 
+from docstrap import errorlog
 from docstrap.config import load
 from docstrap.layouts import markdown
 from docstrap.scan import ScannedProject, scan
@@ -139,14 +140,18 @@ def test_the_composed_page_wins_over_a_file_left_in_the_tree(
     ]
 
 
-def test_every_refused_file_is_named_in_the_build_result(
+def test_an_ignored_index_file_is_a_warning_in_the_error_log_and_nothing_else(
     tmp_path: Path, user_dirs: Path
 ):
-    """Reported, because silence is how this lasted.
+    """Ignored: not on the site, not in the result, one line in the error log.
 
-    The build's own `index.md` writes were never announced anywhere, so
-    the first notice anybody had of them was a dirty `git status` in
-    somebody else's repository.
+    These files used to be reported on the project's landing page, above
+    its listing, and in the build result the store's landing page and the
+    CLI print beside every project. In a real tree with two dozen of them
+    that notice was most of the page — an error where the documentation
+    should have been. An ignored file is not an error, so the build says
+    nothing about it in its output; the error log keeps the names for
+    whoever wants to clear them out.
     """
     store = _store(
         tmp_path,
@@ -155,11 +160,21 @@ def test_every_refused_file_is_named_in_the_build_result(
             f"{PROJECT_PATH}/docs/specs/index.rst": "Stale\n=====\n",
         },
     )
-    result = markdown.build(_one(store), tmp_path / "out")
+    project = _one(store)
+    result = markdown.build(project, tmp_path / "out")
 
-    assert "index.md" in result.notes and "specs/index.rst" in result.notes
-    assert "not published" in result.notes
-    assert "not touched" in result.notes
+    assert "index" not in result.notes, result.notes
+    landing = (result.html_root / "index.html").read_text(encoding="utf-8")
+    assert "Not published" not in landing
+    assert "specs/index.rst" not in landing
+    # The real output is all still there.
+    for expected in ("guide.html", "specs/index.html", "plans/index.html"):
+        assert f'href="{expected}"' in landing, expected
+
+    log = errorlog.path().read_text(encoding="utf-8")
+    assert "WARNING" in log
+    assert project.slug in log
+    assert "index.md" in log and "specs/index.rst" in log
 
 
 def test_a_document_is_not_dropped_from_the_site_by_any_of_this(
