@@ -12,3 +12,7 @@ node_modules/
 
 # docstrap output
 docstrap-build/
+
+# promdance's draft link: a symlink into the promdance store, which is
+# promdance's own repository. Never tracked here.
+promdance
