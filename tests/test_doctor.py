@@ -14,7 +14,7 @@ from typer.testing import CliRunner
 
 from docstrap import doctor
 from docstrap.cli import app
-from docstrap.strapdance import ChainStep, ProjectSource
+from docstrap.doctor import ProjectSource
 
 runner = CliRunner()
 
@@ -40,17 +40,9 @@ def test_reports_the_root_documents_that_only_the_workspace_root_scopes(
     ]
     for finding in report.ambiguities:
         assert finding.source is ProjectSource.WORKSPACE_ROOT
-        assert finding.step is ChainStep.POSITION
+        assert finding.chain.startswith("position — ")
         assert finding.project == "doctor-fixture-workspace"
         assert "workspace root" in finding.detail
-
-
-def test_a_document_scoped_by_its_front_matter_is_not_a_finding(doctor_workspace: Path):
-    report = doctor.examine(doctor_workspace)
-
-    scoped = doctor_workspace / "docs" / "proposals" / "scoped-to-alpha.md"
-    assert scoped in report.examined
-    assert scoped not in {f.path for f in report.ambiguities}
 
 
 def test_excluded_and_out_of_tree_documents_are_never_examined(doctor_workspace: Path):
@@ -62,7 +54,7 @@ def test_excluded_and_out_of_tree_documents_are_never_examined(doctor_workspace:
     # The README is not under docs/, and the member's doc is the member's.
     assert "README.md" not in examined
     assert "owned-by-alpha.md" not in examined
-    assert len(report.examined) == 3
+    assert len(report.examined) == 2
 
 
 def test_a_document_with_nothing_above_it_reports_that_nothing_answered(tmp_path: Path):
@@ -75,7 +67,7 @@ def test_a_document_with_nothing_above_it_reports_that_nothing_answered(tmp_path
     assert len(report.ambiguities) == 1
     finding = report.ambiguities[0]
     assert finding.source is ProjectSource.NONE
-    assert finding.step is ChainStep.UNKNOWN
+    assert finding.chain.startswith("unknown — ")
     assert finding.project is None
     assert "no `.docstrap` entry" in finding.detail
 
@@ -138,7 +130,6 @@ def test_the_fix_plan_leaves_every_undecided_move_commented_out(
     # Every git mv in an undecided plan is commented; running it does nothing.
     moves = [line for line in script.splitlines() if "git mv" in line]
     assert moves and all(line.lstrip().startswith("#") for line in moves)
-    assert "strapdance:" in script  # the leave-it-where-it-is option
 
 
 def test_a_chosen_destination_becomes_a_live_move_in_the_plan(
@@ -204,8 +195,6 @@ def test_the_cli_reports_each_finding_with_the_chain_step_that_produced_it(
     assert "docs/proposals/unscoped-at-the-root.md" in result.output
     assert "chain:    position — uv workspace root" in result.output
     assert "doctor reports and proposes only. Nothing was modified." in result.output
-    # The document that names its owner is not listed as a finding.
-    assert "✗  docs/proposals/scoped-to-alpha.md" not in result.output
 
 
 def test_the_cli_reports_a_clean_workspace_as_clean(tmp_path: Path):

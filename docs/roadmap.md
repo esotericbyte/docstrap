@@ -29,8 +29,7 @@ where it gets better, and about naming states worth going back to.
 
 What is already carrying that weight, all of it on `origin`: promdance backup; `ignore: true`
 declarations honoured by every discovery scan, with the firstmate operational-home check that offers
-to write one; the stable dogfood install; the `x.y.z` version policy, at `0.0.3`; the strapdance
-front-matter reader shared with promdance; tool declaration objects with a single visibility
+to write one; the stable dogfood install; the `x.y.z` version policy, at `0.0.3`; tool declaration objects with a single visibility
 launcher; Sphinx resolved from docstrap's own environment; `docstrap doctor` and the lifecycle skill;
 one owner for slugs and one for promdance storage; the Svelte conversion of the tool UI; a project's
 README reaching its site; expected CLI errors reported as errors rather than tracebacks; and
@@ -86,7 +85,7 @@ the order they are written in, not a queue: none of these has been scheduled.
 Promote a draft, see the badge update, answer a question, submit a review, see the derivative land.
 The suite already covers the pieces thoroughly — declarations against their consumers, the launcher
 offer rule, a real `sphinx-build` asserting the built page carries no injected chrome, a whole new
-tool stood up through the extension seams alone, the strapdance reader against fixture files, README
+tool stood up through the extension seams alone, README
 inclusion, slug and storage ownership, skill install, promdance backup. The single pass through all
 of them does not exist.
 
@@ -123,7 +122,7 @@ wherever the aggregate is built.
 
 ### §4.4 Two small completions in commands that already exist
 
-`docstrap doctor` answers "which documents does no project own?" through the strapdance chain and
+`docstrap doctor` answers "which documents does no project own?" from each document's position and
 reports firstmate homes as an environment check. It does not validate `.docstrap` files or check that
 an aggregate directory exists, both of which were planned. Separately, `docstrap register` does not
 offer to include workspace members at a uv workspace root, so a workspace-mode `.docstrap` is written
@@ -277,7 +276,7 @@ audience in the way that audience needs it.
 
 **The boundary that keeps this from becoming a second implementation.** MCP is a transport over
 capabilities that already exist or are already specified, never a parallel copy of them. Question
-discovery is the strapdance reader's, the answer store is `docstrap.answers`', metadata is the metadata
+discovery is `docstrap.questions`', the answer store is `docstrap.answers`', metadata is the metadata
 database's, and URL resolution will be §4.9's. Each keeps its single owner and the MCP surface calls it.
 A tool that reads the answer file itself, or re-derives a question, is the mistake this paragraph exists
 to name.
@@ -475,7 +474,7 @@ amount of designing against none.
 
 The fifth item of the captain's 2026-09-17 note: a system to archive used prompts and specifications
 in the promdance git when they are promoted into `docs/`, triggered by a change in the strapdance
-header. `docs/docstrap_on_2026-09-01.md` §8.8 is its named place and holds nothing, at his explicit direction — he said
+header (the strapdance reader was removed on 2026-11-21). `docs/docstrap_on_2026-09-01.md` §8.8 is its named place and holds nothing, at his explicit direction — he said
 he needs to think it through himself.
 
 Now that the store is a git repository (§8.4), the "archive in the promdance git" half has somewhere

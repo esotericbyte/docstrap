@@ -49,7 +49,7 @@ body of work landed that it never planned. Dates and commits below are from `git
 6. **The authoring Claude skill**, and `docstrap init` installing skills to `~/.claude/skills/`.
 7. **`docstrap doctor`** — still outstanding when the schedule was written, shipped 2026-08-27
    (`0dae407`). It is narrower than planned in one direction and wider in another: it answers "which
-   documents does no project own?" through the strapdance chain, showing the provenance of every
+   documents does no project own?" from each document's position, showing the provenance of every
    verdict, and it reports firstmate operational homes as an environment check. It does not validate
    `.docstrap` files or check that an aggregate directory exists, which the plan had also listed.
    `--interactive` and `--fix-plan` both exist; nothing is ever moved.
@@ -103,9 +103,9 @@ body of work landed that it never planned. Dates and commits below are from `git
    eras, tag spelling, and the version-bump commit convention.
 6. **The strapdance front-matter reader** (`985d7d8`, 2026-08-26) — the shared document-context
    standard for docstrap and promdance, one reader implementation used by both runtimes, reading a
-   `strapdance` namespace with a fallback chain to position and content. It never writes. Doctor's
-   verdicts come from it. Its hand-written guide, `docs/strapdance-front-matter.md`, was retired and
-   removed on 2026-11-20.
+   `strapdance` namespace with a fallback chain to position and content. It never wrote. Doctor's
+   verdicts came from it. Its hand-written guide, `docs/strapdance-front-matter.md`, was retired and
+   removed on 2026-11-20, and the reader itself, with its callers, was removed on 2026-11-21.
 7. **One owner for slugs and for promdance storage** (`edbb042`, 2026-08-27) — `docstrap.slugs` is
    the only thing in docstrap that turns text into a name, and `docstrap.paths` is the only place the
    promdance path is composed. Two of each had silently orphaned submitted answers and made
@@ -390,9 +390,9 @@ body of work landed that it never planned. Dates and commits below are from `git
     for having no cache. Indexing 5 000 documents across 50 projects: 0.65 s. Composing all 450
     section pages from the table: 0.27 s. Indexing one 100-document project: 0.01 s, against 3.06 s
     for the sphinx-build that publishes it — 0.4%. He is right. Two hot spots turned up while
-    measuring and both were fixed rather than tolerated: `strapdance.read_context` reloads the
-    enclosing `.docstrap` per document at 1.7 ms, so `strapdance.read_title` runs the title chain and
-    stops; and a per-file `get_document_by_path` opened a connection each time at 222 µs, so
+    measuring and both were fixed rather than tolerated: `strapdance.read_context` reloaded the
+    enclosing `.docstrap` per document at 1.7 ms, so `strapdance.read_title` ran the title chain and
+    stopped (both removed on 2026-11-21); and a per-file `get_document_by_path` opened a connection each time at 222 µs, so
     `metadata.ids_by_path` answers in one query.
 
     **`generated_indexes` kept working by being frozen.** It recognised committed files by comparing
@@ -762,7 +762,7 @@ body of work landed that it never planned. Dates and commits below are from `git
    answer a question, submit a review, see annotations persist. The suite covers the pieces
    thoroughly (declarations against their consumers, the launcher offer rule, a real `sphinx-build`
    asserting the page carries no injected chrome, a whole new tool stood up through the extension
-   seams alone, the strapdance reader against real fixture files, README inclusion, slug and storage
+   seams alone, README inclusion, slug and storage
    ownership, skill install, promdance backup). The single end-to-end pass through all of them does
    not exist, and the interactive half is deliberately outside `tests/` because it needs a browser —
    it was driven instead against a real built sample site in headless Chrome, scripted so it can be

@@ -12,7 +12,7 @@ docstrap doctor --root . --interactive --fix-plan /tmp/docstrap-fix.sh
 
 ## 1 The finding
 
-A document is **ambiguously scoped** when the strapdance chain's answer to
+A document is **ambiguously scoped** when its position's answer to
 "which project owns this?" came from the workspace root — or from nothing
 at all.
 
@@ -20,8 +20,8 @@ The chain has four possible answerers for `project`, and three of them are
 the same chain *step* (`position`), which is why the report names the
 answerer as well as the step:
 
-1. `explicit` — the document's own `strapdance.project` field. A real
-   answer, and the only thing that can scope a root-level document.
+1. `explicit` — retired: the front-matter field that answered here was
+   removed on 2026-11-21, so nothing reports this answerer now.
 2. `docstrap_project` — the nearest `.docstrap` project entry containing
    it. A real answer.
 3. `workspace_member` — the uv workspace member whose directory contains
@@ -57,9 +57,7 @@ document, and writes no `.docstrap`.
 `--fix-plan <path>` writes one new file — a shell script nobody has run —
 and refuses to overwrite anything already at that path. Every proposed
 `git mv` in it is commented out unless a person named a destination, so a
-plan run without further thought does nothing. Each entry also carries the
-alternative that involves no move at all: declare the owner in the
-document's front-matter.
+plan run without further thought does nothing.
 
 `--interactive` asks, per finding, which directory should own it. The
 answers shape the emitted script and nothing else; the files stay where

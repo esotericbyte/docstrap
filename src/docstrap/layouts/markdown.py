@@ -57,6 +57,7 @@ out.
 from __future__ import annotations
 
 import os
+import re
 import shutil
 import subprocess
 from pathlib import Path
@@ -68,8 +69,8 @@ from docstrap import (
     paths,
     plugins,
     sectionindex,
-    strapdance,
 )
+from docstrap.frontmatter import split_front_matter
 from docstrap.layouts.base import BuildResult, LayoutError
 from docstrap.scan import ScannedProject
 from docstrap.settings import ResolvedSource
@@ -507,18 +508,35 @@ class _Mounts:
 def _document_title(real_path: Path, data: bytes) -> str:
     """What the index calls a document.
 
-    Resolved through :func:`docstrap.strapdance.read_title`, which is the
-    title chain's own owner, from bytes already read for the hash. Never
-    a second parser and never a second answer.
+    Its first level-1 heading, else its filename de-slugged, from bytes
+    already read for the hash. An authored heading beats a filename.
     """
     try:
         text = data.decode("utf-8")
     except UnicodeDecodeError:
         text = data.decode("utf-8", errors="replace")
     try:
-        return strapdance.read_title(real_path, text=text)
+        heading = _first_h1(split_front_matter(text).body)
     except Exception:  # noqa: BLE001 — a title is never worth a failed build
-        return sectionindex.humanize(real_path.stem)
+        heading = None
+    return heading or sectionindex.humanize(real_path.stem)
+
+
+_H1_RE = re.compile(r"^#[ \t]+(.+?)[ \t]*#*[ \t]*$")
+_FENCE_RE = re.compile(r"^[ \t]*(?:```|~~~)")
+
+
+def _first_h1(body: str) -> str | None:
+    """The first ATX level-1 heading outside a fenced code block, or None."""
+    in_fence = False
+    for line in body.splitlines():
+        if _FENCE_RE.match(line):
+            in_fence = not in_fence
+        elif not in_fence:
+            match = _H1_RE.match(line)
+            if match:
+                return match.group(1).strip()
+    return None
 
 
 def _index_tree(

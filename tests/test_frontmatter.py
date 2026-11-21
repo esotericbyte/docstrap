@@ -12,7 +12,6 @@ from pathlib import Path
 import pytest
 
 from docstrap.frontmatter import read_front_matter, split_front_matter
-from docstrap.strapdance import NAMESPACE
 
 
 def test_document_with_foreign_namespace_and_bare_keys_round_trips(collection: Path):
@@ -33,14 +32,13 @@ def test_round_trip_preserves_comments_and_key_order(collection: Path):
 
     assert "# A hand-written block." in block.raw
     assert "whatever:   it wants" in block.raw, "odd spacing survives verbatim"
-    assert list(block.data) == ["title", "some_other_tool", NAMESPACE, "zz_last_key"]
-    assert block.keys_other_than(NAMESPACE) == ("title", "some_other_tool", "zz_last_key")
+    assert list(block.data) == ["title", "some_other_tool", "zz_last_key"]
 
 
-def test_every_fixture_document_round_trips(collection: Path, workspace: Path):
-    """Sweep both fixture trees; malformed and front-matter-less included."""
-    documents = sorted(collection.rglob("*.md")) + sorted(workspace.rglob("*.md"))
-    assert len(documents) >= 17
+def test_every_fixture_document_round_trips(collection: Path):
+    """Sweep the fixture tree; malformed and front-matter-less included."""
+    documents = sorted(collection.rglob("*.md"))
+    assert len(documents) >= 4
 
     for document in documents:
         original = document.read_bytes()
@@ -51,7 +49,7 @@ def test_crlf_and_byte_order_mark_survive(tmp_path: Path):
     document = tmp_path / "windows.md"
     original = (
         "﻿---\r\n"
-        "strapdance:\r\n"
+        "some_tool:\r\n"
         "  kind: note\r\n"
         "other_tool: {a: 1}\r\n"
         "---\r\n"
@@ -63,7 +61,7 @@ def test_crlf_and_byte_order_mark_survive(tmp_path: Path):
     block = read_front_matter(document)
 
     assert block.present
-    assert block.data[NAMESPACE] == {"kind": "note"}
+    assert block.data["some_tool"] == {"kind": "note"}
     assert block.to_text().encode("utf-8") == original
 
 

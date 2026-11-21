@@ -51,7 +51,6 @@ stale answer, not a question this store believes in.
 """
 from __future__ import annotations
 
-import json
 import re
 from dataclasses import dataclass, replace
 from datetime import datetime, timezone
@@ -519,6 +518,10 @@ _BLURB = {
 }
 
 
+#: The heading each of the two files opens with, before the project slug.
+_TITLES = {"answers": "Answers", "history": "Superseded answers"}
+
+
 def render(
     project_slug: str, answers: Iterable[Answer], *, kind: str = "answers"
 ) -> str:
@@ -537,9 +540,6 @@ def render(
     held = list(answers)
     lines = [
         "---",
-        "strapdance:",
-        f"  kind: {kind}",
-        f"  project: {_scalar(project_slug)}",
         f"{INDEX_KEY}:",
     ]
     for answer in held:
@@ -548,8 +548,7 @@ def render(
         lines[-1] = f"{INDEX_KEY}: []"
     lines.append("---")
     lines.append("")
-    title = "Answers" if kind == "answers" else "Superseded answers"
-    lines.append(f"# {title} — {project_slug}")
+    lines.append(f"# {_TITLES.get(kind, _TITLES['answers'])} — {project_slug}")
     lines.append("")
     lines.append(_BLURB.get(kind, _BLURB["answers"]))
     lines.append("")
@@ -599,18 +598,25 @@ def publishable(text: str) -> str:
         held = parse(text)
     except AnswerStoreError:
         return UNREADABLE_PUBLICATION
-    block = split_front_matter(text)
-    context = block.data.get("strapdance")
-    project = context.get("project") if isinstance(context, dict) else None
-    kind = context.get("kind") if isinstance(context, dict) else None
+    kind, project = _heading(split_front_matter(text).body)
     shown = [
         replace(answer, draft=None, drafted_at=None)
         for answer in held
         if answer.is_submitted
     ]
-    return render(
-        str(project or ""), shown, kind="history" if kind == "history" else "answers"
-    )
+    return render(project, shown, kind=kind)
+
+
+def _heading(body: str) -> tuple[str, str]:
+    """Which file this is and whose, read back off the heading `render` wrote."""
+    for line in body.splitlines():
+        if not line.strip():
+            continue
+        for kind, title in _TITLES.items():
+            if line.startswith(f"# {title} — "):
+                return kind, line.removeprefix(f"# {title} — ").strip()
+        break
+    return "answers", ""
 
 
 def _section(
@@ -633,11 +639,6 @@ def _flow_row(row: dict[str, object]) -> str:
         row, default_flow_style=True, sort_keys=False, width=10**6, allow_unicode=True
     )
     return dumped.strip()
-
-
-def _scalar(value: str) -> str:
-    """One quoted YAML scalar. JSON's string form is valid YAML."""
-    return json.dumps(value)
 
 
 # --- the document half of the key ------------------------------------------

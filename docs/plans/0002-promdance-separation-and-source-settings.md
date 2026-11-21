@@ -57,7 +57,7 @@ tests and README. It holds `promdance.py` (the CLI, split into modules as it mov
 
 The dependency runs one way: promdance depends on docstrap, and docstrap never imports promdance.
 Promdance uses docstrap's public modules where docstrap is the one owner: `slugs`, `config`, `scan`,
-`projectfinder`, `strapdance`, `gitignore`, `forge` and the new `settings`. A test in docstrap fails
+`projectfinder`, `gitignore`, `forge` and the new `settings`. A test in docstrap fails
 if any `docstrap` module imports `promdance`. The pattern is the same as the `forge` fingerprint
 test.
 
@@ -257,7 +257,7 @@ reader who has never seen this workspace. It could seed a public repository unch
    `exclude_*`, the three levels and the precedence rule.
 4. `cli.md`: every `docstrap` command.
 5. `questions-and-answers.md`: `Q<n>` labels, the answer store, submission, and the addendum.
-6. `front-matter.md`: the strapdance namespace and its fallback chain.
+6. `front-matter.md`: dropped, because the strapdance namespace and its reader were removed on 2026-11-21.
 7. `tools.md`: writing a tool, covering the declaration, routes and the UI build.
 8. `plugins.md`: the hookspecs of §4, the entry-point group, and promdance as the worked example.
 

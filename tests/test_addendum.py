@@ -288,8 +288,6 @@ def test_the_front_matter_is_readable_without_reading_the_prose(
     )
     assert not block.malformed
     data = block.data
-    assert data["strapdance"]["kind"] == "answer-addendum"
-    assert data["strapdance"]["project"] == PROJECT_SLUG
     assert data["answered_version"] == delivered["version"]
     assert data["document_id"] == delivered["docId"]
     assert data["answered"] == 1 and data["open"] == 1

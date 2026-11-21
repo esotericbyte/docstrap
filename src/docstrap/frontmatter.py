@@ -1,13 +1,13 @@
 """Lossless YAML front-matter split for markdown documents.
 
-This is the byte-for-byte half of the strapdance standard. It splits a
+It splits a
 document into (opening delimiter, raw YAML text, closing delimiter, body)
 and keeps every piece verbatim, so ``to_text()`` reproduces the original
 document exactly — including line endings, indentation, comments, key
 order and any leading byte-order mark.
 
-That exactness is a correctness property, not a nicety. The standard
-requires every top-level key this reader does not own to survive untouched, and the cheapest way to
+That exactness is a correctness property, not a nicety. Every top-level
+key has to survive untouched, and the cheapest way to
 guarantee that is to never rebuild the YAML from parsed data at all.
 
 Nothing here writes to disk. A malformed block is reported through
@@ -58,15 +58,6 @@ class FrontMatterBlock:
     def malformed(self) -> bool:
         """True when the block could not be parsed as a YAML mapping."""
         return self.error is not None
-
-    def keys_other_than(self, owned: str) -> tuple[str, ...]:
-        """Top-level keys, in document order, that ``owned`` does not claim.
-
-        Asked here rather than in the reader because "everything that is
-        not mine" is a property of the block: the answer must not depend
-        on which fields the reader happened to recognise.
-        """
-        return tuple(k for k in self.data if k != owned)
 
 
 def split_front_matter(text: str) -> FrontMatterBlock:

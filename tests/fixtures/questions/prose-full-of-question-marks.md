@@ -1,7 +1,5 @@
 ---
 title: Every kind of question mark that is not a question
-strapdance:
-  kind: note
 ---
 
 # docstrap doctor — what it reports, and what it will not do
@@ -15,7 +13,7 @@ script, and it changes nothing else. Ever.
 Because a document nobody owns is a document nobody builds. That is the
 whole of it.
 
-A document is **ambiguously scoped** when the strapdance chain's answer to
+A document is **ambiguously scoped** when its position's answer to
 "which project owns this?" came from the workspace root — or from nothing
 at all.
 

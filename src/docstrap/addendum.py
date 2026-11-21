@@ -143,10 +143,6 @@ def render(paired: pairing.Pairing, *, version: str, generated_at: str) -> str:
 
     lines = [
         "---",
-        "strapdance:",
-        "  kind: answer-addendum",
-        f"  project: {json.dumps(paired.project)}",
-        f"  document: {json.dumps(document)}",
         f"answered_version: {json.dumps(version)}",
         f"document_id: {json.dumps(doc_id or '')}",
         f"doc_slug: {json.dumps(paired.doc_slug or '')}",

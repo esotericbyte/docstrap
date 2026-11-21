@@ -1,5 +1,5 @@
 ---
-strapdance:
+some_tool:
   kind: proposal
    status: [unclosed
   : : :
@@ -7,5 +7,4 @@ strapdance:
 
 # A malformed block
 
-The block above is not valid YAML. It is reported, not repaired, and this
-document still resolves through the rest of the chain.
+The block above is not valid YAML. It is reported, not repaired.

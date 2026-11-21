@@ -30,7 +30,7 @@ Both must be open. Neither is inferable, and neither can be satisfied by somethi
 1. **Never change a status unprompted.** Not while doing something else in the file, not as part of a larger task, not because the document plainly moved on. Notice it and say so; do not act.
 2. **Never change status in bulk.** One document, one approval. A directory-wide sweep cannot satisfy gate 2, because a single yes cannot name every transition.
 3. **Never write to the databases.** `metadata.db` and `annotations.db` are docstrap's, and the CLI is the only supported way in. No `sqlite3`, no Python one-liner, no direct file edit.
-4. **Never edit the document to change its status.** A `status:` field in the document's front-matter is the author's declaration, read by the strapdance reader (which never writes). Recording a lifecycle status is a separate act through the CLI. If the user wants the front-matter changed, that is an ordinary editing request and they must say so.
+4. **Never edit the document to change its status.** A `status:` field in the document's front-matter is the author's declaration, and docstrap does not read it. Recording a lifecycle status is a separate act through the CLI. If the user wants the front-matter changed, that is an ordinary editing request and they must say so.
 5. **Never invent a status.** The vocabulary is fixed below; an unrecognised value is rejected by the CLI, and guessing at a near-miss is worse than asking.
 
 ## The commands

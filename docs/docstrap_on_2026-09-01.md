@@ -59,7 +59,7 @@ symlinks and wrote through them; §7.8 is the statement of the rule and the acco
 5. Sphinx integration (§7): MyST with `{eval-rst}` pass-through, mermaid, furo, and the declared
    apparatus — the status badge, the questions tool, the review tool, the answer marker and the
    three-panel Q&A instrument — each reaching the generated `conf.py` from its own declaration.
-6. The strapdance front-matter reader (§7.4), shared with promdance.
+6. The strapdance front-matter reader (§7.4) was removed on 2026-11-21.
 7. Promdance storage and backup (§8).
 8. Two Claude skills (§9), installed by `docstrap init`.
 
@@ -267,12 +267,12 @@ have been scanned at all. Exit code 2.
 ### §4.2 `docstrap doctor`
 
 Doctor answers one question about a workspace — **which documents does no project actually own?** —
-and it answers it through the strapdance chain of §7.4 rather than by inspecting configuration.
+and it answers it from each document's position rather than by inspecting configuration.
 
 A document is ambiguously scoped when the chain's answer to "which project owns this?" came from the
-workspace root, or from nothing at all. The chain has five possible answerers for `project` and three
-of them are the same chain *step*, so the report names the answerer as well as the step: an explicit
-`strapdance.project` field, the nearest enclosing `.docstrap` project entry, and the uv workspace
+workspace root, or from nothing at all. The chain has four possible answerers for `project` and three
+of them are the same chain *step*, so the report names the answerer as well as the step: the nearest
+enclosing `.docstrap` project entry and the uv workspace
 member containing the document are real answers; the workspace root and "nothing above it at all"
 are findings. Findings are grouped by which of those produced them, because the reason is a property
 of the answer rather than of the document.
@@ -423,13 +423,14 @@ The status column carries a **closed** vocabulary, enforced on write: `draft`, `
 No `in_git` column and no cached git state — docstrap queries git at operation time when it needs a
 comparison, because git is the source of truth for git.
 
-docstrap never writes to a content file. It does now *read* front-matter, through §7.4.
+docstrap never writes to a content file. It read front-matter through §7.4 until that reader was removed on 2026-11-21.
 
 ### §5.1 One status vocabulary, two places it is written
 
 Settled by the captain on 2026-08-28 and recorded here on 2026-09-07. There is **one shared status
-vocabulary**, the six values above. The metadata database and strapdance front-matter are two places
-the same vocabulary is written down, not two vocabularies.
+vocabulary**, the six values above. The metadata database and strapdance front-matter were two places
+the same vocabulary was written down, not two vocabularies, until the strapdance reader was removed on 2026-11-21;
+the metadata database is now the only one, and the two consequences below describe the time before that.
 
 Two consequences, and they are the whole of the decision.
 
@@ -441,9 +442,9 @@ Two consequences, and they are the whole of the decision.
    finding to report, in the way `docstrap doctor` reports what it finds. Nothing rewrites either
    side to agree with the other on its own.
 
-The strapdance reader's own behaviour is unchanged by this: it still preserves an unrecognised value
+The strapdance reader's own behaviour was unchanged by this: until its removal it preserved an unrecognised value
 verbatim rather than rejecting it (`packages/docstrap/docs/strapdance-front-matter.md` §3.2, retired on 2026-11-20), because
-the reader never writes and reporting a value it does not recognise requires reading it first.
+the reader never wrote and reporting a value it does not recognise requires reading it first.
 
 ### §5.2 The file index
 
@@ -672,6 +673,9 @@ not become the fourth widget bolting its own button into the same corner. The th
 instrument was on this list and is now built; §7.6 is what it does.
 
 ### §7.4 The strapdance front-matter reader
+
+**The reader was removed on 2026-11-21, with every caller of it; nothing in docstrap reads a `strapdance`
+namespace now. What follows describes it as it was.**
 
 The shared document-context standard for docstrap and promdance: YAML front-matter under a single
 `strapdance` namespace, with a fallback chain to the document's position and content when a field is
@@ -940,9 +944,10 @@ costs to own.
 
 Two hot spots were found while measuring and both are fixed rather than tolerated, because either
 would have made the recompute-always design look expensive when it is not. `strapdance.read_context`
-reloads the enclosing `.docstrap` and globs the uv workspace per document — right for a reader that
-wants the whole context, 1.7 ms against 1.6 µs to hash the same bytes — so `strapdance.read_title`
-runs the title chain and stops, beside the chain rather than as a second copy of it. And a per-file
+reloaded the enclosing `.docstrap` and globbed the uv workspace per document — right for a reader that
+wanted the whole context, 1.7 ms against 1.6 µs to hash the same bytes — so `strapdance.read_title`
+ran the title chain and stopped (both were removed on 2026-11-21; a title is now the first heading, else
+the filename). And a per-file
 `get_document_by_path` opened a connection each time, at 222 µs a file, replaying the whole schema;
 `metadata.ids_by_path` answers for every document in one query.
 
@@ -1258,9 +1263,6 @@ key:
 
 ```markdown
 ---
-strapdance:
-  kind: answers
-  project: "docs"
 answers:
   - {key: '01J9F4V4T4XW9A0RCM6QK2S8YZ:Q4', document: docs/spec.md, label: Q4, answered_at: '2026-09-07T18:20:00+00:00'}
   - {key: '01J9F4V4T4XW9A0RCM6QK2S8YZ:Q2', document: docs/spec.md, label: Q2, answered_at: '2026-09-07T18:31:00+00:00'}
@@ -1656,7 +1658,7 @@ It is **not specified and not built**, at his explicit direction: he said he nee
 through himself. This section exists so the idea has a number to be written into rather than being
 rediscovered.
 
-What is already known and bears on it: strapdance's header vocabulary carries a status that comes
+What is already known and bears on it: strapdance's header vocabulary (its reader was removed on 2026-11-21) carried a status that came
 from a document's position — `done` from `done/`, `reusable` from `templates/`, `reference` from
 `memories/` and `notes/` (see `docs/strapdance-front-matter.md`, retired on 2026-11-20). Which header change means "promoted,
 now archive the original" is the undecided part, and it is a question about the vocabulary before it
@@ -1788,7 +1790,6 @@ packages/docstrap/
     annotations.py          (annotations DB)
     server.py               (FastAPI: static + API)
     frontmatter.py          (byte-for-byte front-matter split)
-    strapdance.py           (the one context reader)
     doctor.py               (ambiguity report + fix-plan proposal)
     questions.py            (the Q-label question finder)
     promdance.py            (draft storage; the `promdance` CLI)
@@ -1929,7 +1930,7 @@ so the folder now says what the citations already assumed. Every inbound referen
 the new path; no section was renumbered, because six modules and a test cite these numbers.
 
 **Q2.** There are two status vocabularies and nothing reconciles them. `metadata.VALID_STATUSES` is
-closed and rejects anything outside six values; the strapdance reader's is deliberately open and
+closed and rejects anything outside six values; the strapdance reader's (the reader was removed on 2026-11-21) is deliberately open and
 preserves anything verbatim. One document can hold `strapdance.status: ROADMAP` in front-matter and
 `proposal` in the database at the same time, and neither is wrong by its own rule. Is one
 authoritative, or are they meant to stay separate?

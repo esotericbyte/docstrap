@@ -42,12 +42,6 @@ def collection(fixture_tree) -> Path:
 
 
 @pytest.fixture
-def workspace(fixture_tree) -> Path:
-    """The uv workspace fixture: a root, two members, root-level prompts."""
-    return fixture_tree("workspace")
-
-
-@pytest.fixture
 def question_workspace(fixture_tree) -> Path:
     """Two sibling projects and a related directory, all posing questions.
 
@@ -63,7 +57,7 @@ def question_workspace(fixture_tree) -> Path:
 def doctor_workspace(fixture_tree) -> Path:
     """The doctor fixture: a workspace-root `docs/` of mixed scoping.
 
-    Two documents nothing scopes, one scoped by front-matter, one inside a
+    Two documents nothing scopes, one inside a
     member, one under `archive/`, and a README outside `docs/` — so a run
     of doctor over it has to get both the finding and the not-a-finding
     right.

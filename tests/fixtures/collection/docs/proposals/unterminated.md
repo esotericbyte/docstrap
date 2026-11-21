@@ -1,5 +1,5 @@
 ---
-strapdance:
+some_tool:
   kind: proposal
 
 # Never closed

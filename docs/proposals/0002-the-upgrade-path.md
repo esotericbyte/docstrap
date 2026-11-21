@@ -292,6 +292,8 @@ asks for, and §9 puts it first, when there is one trivial migration to test it 
 
 ## §4 The strapdance vocabulary
 
+The strapdance reader, and with it the tables this section describes, was removed on 2026-11-21.
+
 The hardest of the four axes, and the answer is mostly *do less*.
 
 ### §4.1 What a vocabulary change actually changes

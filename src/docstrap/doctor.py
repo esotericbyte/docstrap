@@ -12,34 +12,51 @@ Two properties this module exists to guarantee.
    nobody has run — and refuses to overwrite anything. Every other output
    goes to the terminal. That is what makes doctor safe to point at a
    clone, a read-only checkout, or somebody else's repo.
-2. **The verdict comes from the strapdance reader, and shows its work.**
-   Ambiguity is not re-derived here from a second walk of the tree; it is
-   read off :func:`docstrap.strapdance.read_context`, and every finding
-   carries the chain step and the provenance detail that produced it.
+2. **The verdict comes from the document's position, and shows its work.**
+   Which project owns a document is read off where it sits — the nearest
+   ``.docstrap`` project entry, then the uv workspace member containing
+   it, then the workspace root — and every finding carries the step and
+   the provenance detail that produced it.
 
 The detection rule is one line: a document is ambiguously scoped when the
 answer to "which project owns this?" came from the workspace ROOT — or
-from nothing at all. A member directory, a ``.docstrap`` project entry, or
-an explicit ``strapdance.project`` field are all real answers. The
-workspace root is the chain being honest that position could not say,
-and that is exactly the case doctor looks for.
+from nothing at all. A member directory or a ``.docstrap`` project entry
+are both real answers. The workspace root is position being honest that
+it could not say, and that is exactly the case doctor looks for.
 """
 from __future__ import annotations
 
 import shlex
+import tomllib
 from collections.abc import Mapping, Sequence
 from dataclasses import dataclass
+from enum import Enum
 from pathlib import Path
 from typing import Optional
 
 from docstrap import config as docstrap_config
 from docstrap import plugins
 from docstrap.firstmate import FirstmateHome, detect_firstmate_homes
-from docstrap.strapdance import ChainStep, ProjectSource, read_context, workspace_root
+from docstrap.scan import ScannedProject, scan
 
-#: Document extensions doctor examines. The chain resolves any file; this
-#: is the set the docs tree is actually authored in.
+#: Document extensions doctor examines: the set the docs tree is actually
+#: authored in.
 DOCUMENT_SUFFIXES: tuple[str, ...] = (".md", ".markdown")
+
+
+class ProjectSource(str, Enum):
+    """Which of the position answers to "which project owns this?" replied.
+
+    A member directory naming its own project is a real answer, while the
+    workspace root answering is the honest admission that position could
+    not say. Doctor reports on exactly that difference.
+    """
+
+    DOCSTRAP_PROJECT = "docstrap_project"
+    WORKSPACE_MEMBER = "workspace_member"
+    WORKSPACE_ROOT = "workspace_root"
+    NONE = "none"
+
 
 #: The two project answers that mean "no project owns this document".
 AMBIGUOUS_SOURCES: frozenset[ProjectSource] = frozenset(
@@ -66,7 +83,6 @@ class Ambiguity:
     path: Path
     relative_path: str
     project: Optional[str]
-    step: ChainStep
     detail: str
     source: ProjectSource
 
@@ -76,8 +92,9 @@ class Ambiguity:
 
     @property
     def chain(self) -> str:
-        """The chain step and its provenance, as one reportable line."""
-        return f"{self.step.value} — {self.detail}"
+        """The step that answered and its provenance, as one reportable line."""
+        step = "unknown" if self.source is ProjectSource.NONE else "position"
+        return f"{step} — {self.detail}"
 
 
 @dataclass(frozen=True)
@@ -165,17 +182,16 @@ def examine(
 
     ambiguities = []
     for document in documents:
-        context = read_context(document)
-        if context.project_source not in AMBIGUOUS_SOURCES:
+        project, detail, source = _owning_project(document)
+        if source not in AMBIGUOUS_SOURCES:
             continue
         ambiguities.append(
             Ambiguity(
                 path=document,
                 relative_path=_relative(document, workspace),
-                project=context.project.value,
-                step=context.project.step,
-                detail=context.project.detail,
-                source=context.project_source,
+                project=project,
+                detail=detail,
+                source=source,
             )
         )
 
@@ -200,7 +216,7 @@ def locate_workspace(root: Path) -> tuple[Path, str]:
     """The workspace root above ``root``, and how it was decided.
 
     A ``.docstrap`` wins, because a person put it there deliberately;
-    then the uv workspace root the reader already knows how to find; then
+    then the uv workspace root; then
     ``root`` itself, which is stated rather than implied.
     """
     root = Path(root).expanduser().resolve()
@@ -209,9 +225,9 @@ def locate_workspace(root: Path) -> tuple[Path, str]:
     if config_path is not None:
         return config_path.parent, f"`{docstrap_config.DOCSTRAP_FILENAME}` at {config_path.parent}"
 
-    uv_root = workspace_root(root)
-    if uv_root is not None:
-        return uv_root, f"uv workspace root {uv_root}"
+    found = _find_workspace_root(root)
+    if found is not None:
+        return found[0], f"uv workspace root {found[0]}"
 
     return root, "no `.docstrap` and no uv workspace above it; using --root itself"
 
@@ -260,6 +276,130 @@ def _relative(path: Path, base: Path) -> str:
         return path.resolve().relative_to(base.resolve()).as_posix()
     except ValueError:
         return str(path)
+
+
+# --- which project owns a document -----------------------------------------
+
+
+def _owning_project(path: Path) -> tuple[Optional[str], str, ProjectSource]:
+    """The project a document's position puts it in, how, and who said so.
+
+    Nearest ``.docstrap`` project entry, then the uv workspace member
+    containing the document, then the workspace root — which for a
+    root-level document is honest rather than wrong.
+    """
+    project = _docstrap_project(path)
+    if project is not None:
+        return (
+            project.slug,
+            f"nearest `.docstrap` project entry `{project.slug}`",
+            ProjectSource.DOCSTRAP_PROJECT,
+        )
+
+    found = _find_workspace_root(path)
+    if found is None:
+        return (
+            None,
+            "no `.docstrap` entry and no uv workspace above this document",
+            ProjectSource.NONE,
+        )
+
+    root, data = found
+    member = _workspace_member(root, data, path)
+    if member is not None:
+        member_data = _read_toml(member / "pyproject.toml") or {}
+        return (
+            _project_name(member_data) or member.name,
+            f"uv workspace member `{_relative(member, root)}`",
+            ProjectSource.WORKSPACE_MEMBER,
+        )
+    return (
+        _project_name(data) or root.name,
+        f"uv workspace root `{root}` (document is not inside a member)",
+        ProjectSource.WORKSPACE_ROOT,
+    )
+
+
+def _docstrap_project(path: Path) -> Optional[ScannedProject]:
+    """The deepest ``.docstrap`` project entry whose root contains ``path``.
+
+    Reuses ``config`` and ``scan`` rather than walking the tree again —
+    docstrap already owns project discovery and there must not be a second
+    scanner.
+    """
+    config_path = docstrap_config.find_config(path.parent)
+    if config_path is None:
+        return None
+    try:
+        cfg = docstrap_config.load(config_path)
+        projects = list(scan(cfg))
+    except docstrap_config.DocstrapConfigError:
+        return None
+
+    best: Optional[ScannedProject] = None
+    for project in projects:
+        if _contains(project.root_dir, path):
+            if best is None or len(project.root_dir.parts) > len(best.root_dir.parts):
+                best = project
+    return best
+
+
+def _find_workspace_root(path: Path) -> Optional[tuple[Path, dict]]:
+    """Walk up for the nearest pyproject.toml declaring a uv workspace."""
+    current = path.resolve()
+    if current.is_file():
+        current = current.parent
+    while True:
+        candidate = current / "pyproject.toml"
+        if candidate.is_file():
+            data = _read_toml(candidate)
+            if data and "workspace" in data.get("tool", {}).get("uv", {}):
+                return current, data
+        if current.parent == current:
+            return None
+        current = current.parent
+
+
+def _workspace_member(root: Path, data: dict, path: Path) -> Optional[Path]:
+    """The deepest uv workspace member directory containing ``path``."""
+    settings = data.get("tool", {}).get("uv", {}).get("workspace", {})
+    excluded = {
+        p.resolve() for pattern in settings.get("exclude", []) for p in root.glob(str(pattern))
+    }
+    best: Optional[Path] = None
+    for pattern in settings.get("members", []):
+        for candidate in root.glob(str(pattern)):
+            if not candidate.is_dir() or candidate.resolve() in excluded:
+                continue
+            if not (candidate / "pyproject.toml").is_file():
+                continue
+            if not _contains(candidate, path):
+                continue
+            if best is None or len(candidate.resolve().parts) > len(best.parts):
+                best = candidate.resolve()
+    return best
+
+
+def _read_toml(path: Path) -> Optional[dict]:
+    try:
+        with path.open("rb") as handle:
+            return tomllib.load(handle)
+    except (OSError, tomllib.TOMLDecodeError):
+        return None
+
+
+def _project_name(data: dict) -> Optional[str]:
+    name = data.get("project", {}).get("name")
+    return str(name) if name else None
+
+
+def _contains(directory: Path, target: Path) -> bool:
+    """True when ``target`` is at or below ``directory``."""
+    try:
+        target.resolve().relative_to(directory.resolve())
+    except (ValueError, OSError):
+        return False
+    return True
 
 
 # --- the proposal ----------------------------------------------------------
@@ -338,7 +478,7 @@ def _plan_entry(finding: Ambiguity, destination: Optional[str]) -> list[str]:
         f"#     chain:   {finding.chain}",
         f"#     reason:  {finding.reason}",
         "#",
-        "#     Option 1 — move it into the docs tree of the project that owns it.",
+        "#     Move it into the docs tree of the project that owns it.",
     ]
 
     if destination:
@@ -354,18 +494,7 @@ def _plan_entry(finding: Ambiguity, destination: Optional[str]) -> list[str]:
             f"# git mv {source} {shlex.quote(placeholder)}",
         ]
 
-    lines += [
-        "#",
-        "#     Option 2 — leave it where it is and declare the owner in its",
-        "#     front-matter, which is the only thing that can scope a root-level",
-        "#     document to a project:",
-        "#",
-        "#         ---",
-        "#         strapdance:",
-        "#           project: <project-slug>",
-        "#         ---",
-        "",
-    ]
+    lines.append("")
     return lines
 
 

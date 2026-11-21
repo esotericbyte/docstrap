@@ -845,7 +845,7 @@ the database would reject.
 
 **What the code does with them.** I traced it, because whether these values reach the database changes the
 severity completely. `meta.set_status` is called from exactly two places — `server.py:212` and `cli.py:649` —
-and both pass a status the user supplied. Nothing passes strapdance's derived value into the store. So the
+and both pass a status the user supplied. Nothing passes strapdance's derived value into the store (the strapdance reader was removed on 2026-11-21). So the
 three out-of-vocabulary values never enter `metadata.db`; the contradiction is confined to what the reader
 *reports*.
 
@@ -908,7 +908,7 @@ docstrap tag DOC review -> databases created: 1   (~/.local/share/docstrap/metad
 
 **None of the three commands the question names opens a database at all.** `questions` imports only
 `projectscope` and `docstrap.questions` — it is a pure document scan, and `pairing.py` (which does touch
-metadata) is not on its path. `doctor` reads the strapdance chain and the filesystem. `--version` reads
+metadata) is not on its path. `doctor` reads each document's position and the filesystem. `--version` reads
 package metadata. Since the schema check happens on open, and they never open, they cannot be blocked.
 
 §3.1's wording is already correct on this point and already exempts them by construction: "every entry point

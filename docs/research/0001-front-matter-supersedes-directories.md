@@ -10,7 +10,7 @@ related_specs:
   # packages/docstrap/docs/strapdance-front-matter.md was retired on 2026-11-20.
 related_notes: []
 related_code:
-  - "packages/docstrap/src/docstrap/strapdance.py"
+  # packages/docstrap/src/docstrap/strapdance.py was removed on 2026-11-21.
   - "packages/docstrap/src/docstrap/metadata.py"
   - "packages/docstrap/src/docstrap/config.py"
 ---
@@ -60,7 +60,7 @@ Everything in this section was read out of the modules; nothing is taken on fait
 
 ### 3.1 There is no notion of a project having crossed over
 
-`read_context` in `packages/docstrap/src/docstrap/strapdance.py` resolves each field independently
+`read_context` in `packages/docstrap/src/docstrap/strapdance.py` (the reader this note surveys, removed on 2026-11-21) resolves each field independently
 through the chain, per field, per document. `_resolve_kind` takes step 1 (an explicit value in the
 `strapdance` namespace, or a bare compatibility key) and otherwise falls to
 `KIND_BY_DIRECTORY.get(parent.lower())`. `_resolve_status` does the same against

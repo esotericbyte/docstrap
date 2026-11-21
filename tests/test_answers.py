@@ -415,9 +415,6 @@ LEGACY_ROW = (
 
 LEGACY_STORE = f"""\
 ---
-strapdance:
-  kind: answers
-  project: "{PROJECT_SLUG}"
 answers:
 {LEGACY_ROW}
 ---
@@ -549,7 +546,7 @@ def test_the_superseded_answers_are_beside_the_current_ones_not_among_them(
     past = answers.history_path(PROJECT_SLUG)
     assert past.exists() and past.parent == answers.store_path(PROJECT_SLUG).parent
     text = past.read_text(encoding="utf-8")
-    assert "kind: history" in text
+    assert text.startswith("---\nanswers:\n") and "# Superseded answers — " in text
     assert "revision: 1" in text and "Flat files." in text
 
 

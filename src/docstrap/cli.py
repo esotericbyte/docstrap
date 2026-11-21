@@ -315,9 +315,9 @@ def doctor(
 ) -> None:
     """Report ambiguously-scoped top-level documents. Never moves anything.
 
-    A document is ambiguously scoped when the strapdance chain's answer to
+    A document is ambiguously scoped when its position's answer to
     "which project owns this?" came from the workspace root — or from
-    nothing at all. Every finding is reported with the chain step and the
+    nothing at all. Every finding is reported with the step and the
     provenance that produced it.
 
     Doctor reports and proposes; it does not act. The exit code is 0 even

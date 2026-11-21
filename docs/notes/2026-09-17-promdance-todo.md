@@ -54,7 +54,7 @@ half-configured, and that is the defect rather than the missing line.
 - His creation sequence, stated 2026-09-15 and unchanged by this note: add to `.gitignore`, create the
   directory in the store, **move** the files there, then create the symlink. The move is what takes them
   out of git, so there is no separate untracking step.
-- Item 5 touches `strapdance`'s header vocabulary, where a status is `done` from `done/`, `reusable`
+- Item 5 touches `strapdance`'s header vocabulary (its reader was removed on 2026-11-21), where a status was `done` from `done/`, `reusable`
   from `templates/`, `reference` from `memories/` and `notes/`. Which header change means "promoted, now
   archive the original" is not decided.
 
