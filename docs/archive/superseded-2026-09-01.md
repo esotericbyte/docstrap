@@ -1,7 +1,7 @@
 # docstrap — superseded design material, removed 2026-09-01
 
 Retired sections lifted out of `docs/proposals/docstrap.md` (promoted to `docs/spec.md`
-on 2026-09-07) and `docs/plans/docstrap-mvp.md` (renamed
+on 2026-09-07, renamed `docs/docstrap_on_2026-09-01.md` on 2026-11-20) and `docs/plans/docstrap-mvp.md` (renamed
 `docs/implementation-record.md` on 2026-09-01) when
 those two were reconciled against the code on `main` at commit `47d7de7`.
 

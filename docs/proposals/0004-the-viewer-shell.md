@@ -371,7 +371,7 @@ nothing away.
 The shell needs, for every store, project and document: a title, the document identity, the published
 page's URL, and the `qapanels` offer with its routes resolved. The proposal is that the build writes this
 as one JSON file into the site it publishes, composed from what the build already knows: the
-`file_index` table says what each published directory contains (`docs/spec.md` §5.2, and
+`file_index` table says what each published directory contains (`docs/docstrap_on_2026-09-01.md` §5.2, and
 `sectionindex.compose` already answers section pages from it without touching a filesystem), and
 `launcher.offer_payload` is the function that already resolves a page's offers — called here once per
 document with the same `PageContext` the page itself gets. So the URLs in the manifest are the URLs in

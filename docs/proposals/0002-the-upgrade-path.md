@@ -56,13 +56,13 @@ are about:
 **This document is in `proposals/` and not `plans/` because the captain has not evaluated it.** The
 folder carries the weight (repository `AGENTS.md`). It keeps the plan number-line rather than starting
 a second one, so promotion is a move between folders and not a renumbering — which is how
-`docs/spec.md` reached `docs/plans/` (its Q1).
+`docs/docstrap_on_2026-09-01.md` reached `docs/plans/` (its Q1).
 
 **Nothing here has been implemented.** No migration runner exists, no schema changed, no version was
 stamped, and the live databases were read for their schema and otherwise not touched.
 
 **A fifth axis arrived while this was being written.** The captain named four; on the same day the
-promdance store became a git repository with a remote (`docs/spec.md` §8.4), which is a third
+promdance store became a git repository with a remote (`docs/docstrap_on_2026-09-01.md` §8.4), which is a third
 persistent state beside the two databases and carries the same question in a different shape. §12 is
 its section, and §2 explains why it could be added rather than retrofitted.
 
@@ -115,7 +115,7 @@ Two things in the tree are relevant anyway.
    property is its model rather than its dependencies: migrations are *files on disk discovered at
    runtime*. docstrap's schema is one Python constant that ships inside the wheel, and a
    wheel-installed tool that must also find a migrations directory has a second install surface to
-   keep correct. That is the class of defect `docs/spec.md` §4 and the one-owner rule exist to prevent.
+   keep correct. That is the class of defect `docs/docstrap_on_2026-09-01.md` §4 and the one-owner rule exist to prevent.
 
 3. **caribou 0.6.0** (released 2026-02-06) is the closest fit and the most instructive rejection.
    Zero runtime dependencies, SQLite only, 351 lines in one module. It was rejected on one specific
@@ -185,7 +185,7 @@ They are **monotonic integers, not `x.y.z`**, and not the package version. §7 i
 
 ### §2.1 The two databases version apart
 
-`docs/spec.md` §6 already decided this for a different reason and the reason still holds: annotations
+`docs/docstrap_on_2026-09-01.md` §6 already decided this for a different reason and the reason still holds: annotations
 live in a separate *file* rather than separate tables "so annotations can be backed up, migrated, or
 replaced independently of metadata." Each file carries its own `user_version`.
 
@@ -320,7 +320,7 @@ Three kinds of change, and they are not alike.
 For cases 2 and 3 there is one rule, and it is the captain's, set on 2026-08-28: **an asymmetry is a
 finding, never a repair.** In his words, "IF one status is present and the other is missing that is
 not a signal to copy the filled one to the other one. that is a sign that the procedures were not used
-reasonably." `docs/spec.md` §5.1(2) already states the general form: an asymmetry is "reported as a
+reasonably." `docs/docstrap_on_2026-09-01.md` §5.1(2) already states the general form: an asymmetry is "reported as a
 finding, never silently backfilled."
 
 The principle underneath is that a recorded value is **evidence of what happened**, and a tool that
@@ -348,7 +348,7 @@ denormalised onto `documents` in the same way `current_status` already is. It is
 a status is written, by whichever command wrote it.
 
 Rows written before the column existed hold NULL, and **NULL is its own state, not a synonym for
-version 1.** The precedent is exact and it is the captain's: `docs/spec.md` §8.1.3's tri-state
+version 1.** The precedent is exact and it is the captain's: `docs/docstrap_on_2026-09-01.md` §8.1.3's tri-state
 `submitted` field, where absent means "written before the distinction existed", is never written back,
 and lets untouched legacy rows survive a rewrite byte for byte. NULL here means "written before
 docstrap recorded which vocabulary was in force", and doctor reports it as unknown-provenance rather
@@ -639,7 +639,7 @@ Every versioning scheme forecloses something. Seven things, each accepted.
 
 ## §12 The promdance store — a third state, where git is already most of the answer
 
-Written after the rest of this document, when `docs/spec.md` §8.4 landed on 2026-09-17 and made the
+Written after the rest of this document, when `docs/docstrap_on_2026-09-01.md` §8.4 landed on 2026-09-17 and made the
 promdance store at `~/.local/share/promdance/` a git repository with a remote. It is a **third
 persistent state** beside the two databases, it has the same question in a different shape, and the
 honest answer for it is *less* machinery rather than more — for one reason that is worth stating
@@ -653,7 +653,7 @@ is, for this axis, already done by a tool docstrap drives rather than reimplemen
 ### §12.1 Three ways this axis is not the database axis
 
 1. **There is no schema and no header to stamp.** The store is a directory of slug-named directories,
-   and `docs/spec.md` §8.4.2 is emphatic that initialising "adds `.git/` and nothing else" — **no file
+   and `docs/docstrap_on_2026-09-01.md` §8.4.2 is emphatic that initialising "adds `.git/` and nothing else" — **no file
    is written in among the drafts**, not a `.gitignore`, not a README, nothing. So the obvious move,
    a `.docstrap-store-version` file at the root, is forbidden by a rule that exists for a good reason:
    every entry beside `.git/` is a draft or a draft's directory, and the moment that stops being true
@@ -702,7 +702,7 @@ person's drafts live in, and refusing to open it would mean refusing to save a d
 
 ### §12.3 A layout migration is a move, and the store already decided how those go
 
-The store's own precedent is `docs/spec.md` §8.6: a project that already holds a real `promdance/`
+The store's own precedent is `docs/docstrap_on_2026-09-01.md` §8.6: a project that already holds a real `promdance/`
 directory needs its files **moved** into the store, and `promdance intern` **never moves a file** —
 such a project is "reported and left exactly as found, every time". Roadmap §4.15 carries the work and
 names the shape it must take, borrowed from chezmoi: show exactly what would move before moving it,
@@ -719,7 +719,7 @@ It might look like a fourth thing to sequence. It is not, for two reasons. It is
 database axis — nothing in it touches SQLite — so it sits beside the annotations database in §9.1.
 And its expensive prerequisite, a backup, is the one thing it already has.
 
-It also supplies a second, independent confirmation of fact 7. `docs/spec.md` Q7 asks about
+It also supplies a second, independent confirmation of fact 7. `docs/docstrap_on_2026-09-01.md` Q7 asks about
 `isolated-tool-store` and `markdown-store`, two store entries "written by docstrap's own test suite
 rather than by anybody drafting", and answers the question this plan asks in Q6 the same way: it is
 not an agent's call, because "'it looked empty' is precisely the reasoning that should never be enough
@@ -732,7 +732,7 @@ it is **Q7** below.
 Numbered so `docstrap questions` finds them, separately from the section numbers above. None is
 answered here; each is the captain's.
 
-**Q1.** `docs/spec.md` §5.1 states one shared status vocabulary, but `metadata.VALID_STATUSES` holds
+**Q1.** `docs/docstrap_on_2026-09-01.md` §5.1 states one shared status vocabulary, but `metadata.VALID_STATUSES` holds
 `draft, proposal, spec, plan, active, archived` while `strapdance.STATUS_BY_DIRECTORY` resolves to
 `done`, `reusable` and `reference`, none of which is in that set. Is the metadata set the one
 vocabulary, with the strapdance directory mappings to be brought into it? (§4.4 — this blocks the
@@ -751,7 +751,7 @@ change nonetheless force a package version bump, so §3.2's refusal can name the
 can read the file?
 
 **Q5.** §2.1 versions the two databases apart and gives both the same refuse-and-migrate treatment.
-`annotations.db` holds one row against a store `docs/spec.md` §6 calls complete and unexercised.
+`annotations.db` holds one row against a store `docs/docstrap_on_2026-09-01.md` §6 calls complete and unexercised.
 Should it get that same treatment, rather than the cheaper rule that a version mismatch may recreate
 it?
 
@@ -762,6 +762,6 @@ left for `docs/roadmap.md` §4.8's orphaned pool to collect when that is built?
 
 **Q7.** Two of the three persistent states were found on 2026-09-17, independently, to hold rows
 nobody meant to keep, both written by docstrap's own test suite: 59 document rows in `metadata.db`
-(fact 7) and the two empty store entries `docs/spec.md` Q7 asks about. Is a test that writes to live
+(fact 7) and the two empty store entries `docs/docstrap_on_2026-09-01.md` Q7 asks about. Is a test that writes to live
 user state a defect class worth a standing rule — a suite-wide assertion that no test touches a real
 XDG directory — rather than two separate cleanups?

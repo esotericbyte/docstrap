@@ -166,7 +166,7 @@ row it sits under. A decided row is marked.
 ### 5.1 How a decision is keyed
 
 A decision is an answer in the project's answer store, `<project-promdance>/answers.md`
-(`spec.md` §8.1), written through `docstrap.answers` like every other answer.
+(`docstrap_on_2026-09-01.md` §8.1), written through `docstrap.answers` like every other answer.
 `tools/tasks/decisions.py` is the one place the spelling below is written down.
 
 The **key** is `<doc-id>:task/<task-id>`. `<doc-id>` is the metadata store's id for the page that
@@ -197,7 +197,7 @@ a document's questions decided, and a task decision is not one.
 ### 5.2 Saying the decisions are done
 
 When `answers_done_command` is configured, the toolbar carries **Answers done**. It is the existing
-prompt (`spec.md` §8.10): it posts to the Q&A panels' document-scope route for this page, and the
+prompt (`docstrap_on_2026-09-01.md` §8.10): it posts to the Q&A panels' document-scope route for this page, and the
 server runs the command once with `--project <slug> --document <the page's path>` — the same
 `document` every decision on the page is stored under. Unset, it is not shown.
 

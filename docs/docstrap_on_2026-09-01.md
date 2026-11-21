@@ -1,8 +1,8 @@
-# docstrap — specification
+# docstrap on 2026-09-01
 
-Reconciled against the code on `main` at commit `47d7de7` on 2026-09-01. Every section describes what
-docstrap does today. Material that described something abandoned or shipped differently was removed
-rather than annotated; the substantive removals are archived at
+A dated description of docstrap, not a specification. It was reconciled against the code on `main` at
+commit `47d7de7` on 2026-09-01, and every section describes what docstrap did as of that reconciliation.
+Material describing something abandoned or shipped differently was removed, not annotated; the removals are archived at
 [`docs/archive/superseded-2026-09-01.md`](archive/superseded-2026-09-01.md), and
 `git log` has the rest.
 
@@ -442,7 +442,7 @@ Two consequences, and they are the whole of the decision.
    side to agree with the other on its own.
 
 The strapdance reader's own behaviour is unchanged by this: it still preserves an unrecognised value
-verbatim rather than rejecting it (`packages/docstrap/docs/strapdance-front-matter.md` §3.2), because
+verbatim rather than rejecting it (`packages/docstrap/docs/strapdance-front-matter.md` §3.2, retired on 2026-11-20), because
 the reader never writes and reporting a value it does not recognise requires reading it first.
 
 ### §5.2 The file index
@@ -690,7 +690,7 @@ resolves through the rest of the chain. Three states are distinguished: not yet 
 and declined (a positive recorded fact, so a continual tool does not re-offer the same document
 forever), and classified.
 
-`packages/docstrap/docs/strapdance-front-matter.md` is the hand-authoring guide and the account of
+`packages/docstrap/docs/strapdance-front-matter.md` (retired on 2026-11-20) was the hand-authoring guide and the account of
 the namespace, the chain, and the three states.
 
 ### §7.5 Project READMEs
@@ -1658,7 +1658,7 @@ rediscovered.
 
 What is already known and bears on it: strapdance's header vocabulary carries a status that comes
 from a document's position — `done` from `done/`, `reusable` from `templates/`, `reference` from
-`memories/` and `notes/` (see `docs/strapdance-front-matter.md`). Which header change means "promoted,
+`memories/` and `notes/` (see `docs/strapdance-front-matter.md`, retired on 2026-11-20). Which header change means "promoted,
 now archive the original" is the undecided part, and it is a question about the vocabulary before it
 is a question about the archiving. Now that the store is a git repository (§8.4), the "archive in the
 promdance git" half has somewhere to happen; the trigger does not.
@@ -1766,7 +1766,7 @@ packages/docstrap/
   build-tools.mjs           (one Svelte bundle per tool, named from its declaration)
   README.md
   docs/
-    doctor.md, tools-and-instruments.md, strapdance-front-matter.md,
+    doctor.md, tools-and-instruments.md, strapdance-front-matter.md (retired 2026-11-20),
     finding-questions.md, notes/sphinx-extension-research.md
   src/docstrap/
     __init__.py             (empty)

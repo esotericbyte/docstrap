@@ -15,7 +15,7 @@ of numbered phases toward a first usable release — is retired: docstrap is ins
 stable path, dogfooded daily, and building twelve projects across three registered stores, so "the
 work so far" is a delivered tool rather than a run-up to one.
 
-Design reference: `docs/spec.md`, reconciled in the same pass. Where the two documents
+Design reference: `docs/docstrap_on_2026-09-01.md`, reconciled in the same pass. Where the two documents
 disagreed, the code decided.
 
 **A version is `x.y.z` and nothing else** — `VERSIONING.md` §2.1, 2026-08-26 — and a phase number
@@ -104,7 +104,8 @@ body of work landed that it never planned. Dates and commits below are from `git
 6. **The strapdance front-matter reader** (`985d7d8`, 2026-08-26) — the shared document-context
    standard for docstrap and promdance, one reader implementation used by both runtimes, reading a
    `strapdance` namespace with a fallback chain to position and content. It never writes. Doctor's
-   verdicts come from it.
+   verdicts come from it. Its hand-written guide, `docs/strapdance-front-matter.md`, was retired and
+   removed on 2026-11-20.
 7. **One owner for slugs and for promdance storage** (`edbb042`, 2026-08-27) — `docstrap.slugs` is
    the only thing in docstrap that turns text into a name, and `docstrap.paths` is the only place the
    promdance path is composed. Two of each had silently orphaned submitted answers and made
