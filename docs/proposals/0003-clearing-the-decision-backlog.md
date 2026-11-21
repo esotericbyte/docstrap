@@ -4,7 +4,7 @@ Status: PROPOSAL, 2026-09-30. Under evaluation and NOT approved — the folder s
 
 Twenty-one rulings on the questions three docstrap holds put to the captain, decided here by reasoning
 against the code rather than parked for him. **Every ruling below is a recommendation he may overturn.**
-Nothing in this document has been written into `docs/spec.md` or into
+Nothing in this document has been written into `docs/docstrap_on_2026-09-01.md` or into
 `docs/proposals/0002-the-upgrade-path.md`, because an open question in those documents is answered by
 the captain and never by an agent writing an answer into them. This file is the separate place the
 reasoning can live without pretending to be his decision.
@@ -36,14 +36,14 @@ the upgrade-path plan's (`docstrap-upgrade-rulings-h99`). They had been waiting 
 rules on all of them.
 
 The one rule it obeys is the project's: **an open question is answered by the captain, never by an agent
-writing an answer into a document.** So `docs/spec.md` Q3 still reads as an open question in `docs/spec.md`,
+writing an answer into a document.** So `docs/docstrap_on_2026-09-01.md` Q3 still reads as an open question in `docs/docstrap_on_2026-09-01.md`,
 and `0002-the-upgrade-path.md` Q6 still reads as an open one there. What changed is that each now has a
 reasoned recommendation, with its evidence and its falsifier, in a document he can accept, amend or reject
 in one pass instead of twenty-one.
 
 A ruling here becomes his answer only when he says so. The mechanism for that already exists and is not
 this file: `fm-captain-hold.sh answer` records his exact words, and the corpus convention writes the
-resolution into the question's own item, keeping its label and its number (`docs/spec.md` §8.1.1, and the
+resolution into the question's own item, keeping its label and its number (`docs/docstrap_on_2026-09-01.md` §8.1.1, and the
 note above its Q1).
 
 (s2)=
@@ -81,7 +81,7 @@ three. `question-source` — whether questions stay authored as inline directive
 ruled at §5.1 below.
 
 **h98 carries thirteen labelled questions, and the hold is right where a later audit said it was wrong.**
-`docs/spec.md` has `**Q1.**` through `**Q13.**` at lines 1730–1824. The hold body's claim of "THIRTEEN
+`docs/docstrap_on_2026-09-01.md` has `**Q1.**` through `**Q13.**` at lines 1730–1824. The hold body's claim of "THIRTEEN
 questions" was contradicted on 2026-09-17 by `data/hold-reconcile-h104/report.md` §4.3.12, which found eight
 and reported that Q9 through Q13 "do not exist in that file, or anywhere else in his tree." That audit was
 accurate when written and was overtaken the same day: commit `97292f3`, dated 2026-09-17, is what added
@@ -198,7 +198,7 @@ a `creator` column and stable ids. Answers would get update-in-place for nothing
 one less bespoke format. The survey's own recommendation leaned this way because the alternative was writing
 a markdown parser.
 
-**The case against, which the captain made himself.** `docs/spec.md` Q4, answered 2026-09-07: the
+**The case against, which the captain made himself.** `docs/docstrap_on_2026-09-01.md` Q4, answered 2026-09-07: the
 annotations database "was built for that client" — Annotorious — and "answers to a document's questions do
 not go there: they go to the keyed answer file of §8.1." The reason given is a modelling one rather than a
 convenience one: `creator` models "whoever is reading a deployed site", while "an answer to a `Q<n>` is a
@@ -264,7 +264,7 @@ behaviour across the captain's surfaces, described in one place."
 
 It then reproduces ADR-0013 clause by clause: event-driven not clock-driven, an 800 ms debounce named as a
 tuned constant rather than a contract, Ctrl/Cmd+S flushing immediately, and a binary indicator whose absence
-is the unsaved signal. The vanilla-JS constraint that made option three ugly was withdrawn — `docs/spec.md`
+is the unsaved signal. The vanilla-JS constraint that made option three ugly was withdrawn — `docs/docstrap_on_2026-09-01.md`
 §11 item 5 records why: it "was protecting portability to layouts that do not exist."
 
 The distinction this draws is worth keeping. Sharing *code* couples two packages' release cycles; sharing a
@@ -297,7 +297,7 @@ legitimate but it is a scope change to a written plan, and it should be a decisi
 **Why both options are unavailable.** Both name a vocabulary that has been retired, and retired by decision
 rather than by drift. `docs/plans/docstrap-mvp.md` stopped existing on 2026-09-01; `docs/archive/superseded-2026-09-01.md`
 is the record. `VERSIONING.md` §2.1: "'Alpha N' is retired as a version label. It may still appear in prose
-as a historical fact … but it is never a status, never a version." `docs/spec.md` line 9: "**This describes a
+as a historical fact … but it is never a status, never a version." `docs/docstrap_on_2026-09-01.md` line 9: "**This describes a
 tool in use, not a specification being built toward.**" And `AGENTS.md`: "**Do not write anything that treats
 the present state as pre-product**; 'MVP' is retired as a framing. … A phase number standing alone is never a
 name."
@@ -327,7 +327,7 @@ vocabulary, which `VERSIONING.md` §2.1 and `AGENTS.md` both currently forbid.
 
 ### §6.1 spec Q3 — the aggregate affordances
 
-**The question, as posed** (`docs/spec.md` Q3): "Tag index, backlinks, cross-project cross-linking and a
+**The question, as posed** (`docs/docstrap_on_2026-09-01.md` Q3): "Tag index, backlinks, cross-project cross-linking and a
 recent-updated feed were expected from the aggregate module that was never adopted, and nothing replaced them
 when docstrap grew its own aggregate. Are they still wanted?"
 
@@ -370,7 +370,7 @@ act.
 
 ### §6.2 spec Q5 — CI/CD against `VERSIONING.md`
 
-**The question, as posed** (`docs/spec.md` Q5): "§11 lists CI/CD integration as a roadmap item, while
+**The question, as posed** (`docs/docstrap_on_2026-09-01.md` Q5): "§11 lists CI/CD integration as a roadmap item, while
 `VERSIONING.md` §1 puts CI, a package index, publishing and release automation permanently out of scope for
 this workspace. Which of the two statements stands?"
 
@@ -404,7 +404,7 @@ index rather than from the stable-install script — which removes the stated re
 
 ### §6.3 spec Q6 — the ordering of §11
 
-**The question, as posed** (`docs/spec.md` Q6): "The ordering of §11 has not been re-confirmed since the
+**The question, as posed** (`docs/docstrap_on_2026-09-01.md` Q6): "The ordering of §11 has not been re-confirmed since the
 original spec was written, and four of its entries did not exist then. Is the priority order still right?"
 
 **The case for re-confirming it.** Fourteen entries in a rough priority order is useful orientation, and
@@ -437,7 +437,7 @@ gap in the roadmap, and the fix would still be there rather than here.
 
 ### §6.4 spec Q7 — the two empty store entries
 
-**The question, as posed** (`docs/spec.md` Q7, abridged to its operative parts): "Two entries in the
+**The question, as posed** (`docs/docstrap_on_2026-09-01.md` Q7, abridged to its operative parts): "Two entries in the
 promdance store, `isolated-tool-store` and `markdown-store`, were written by docstrap's own test suite rather
 than by anybody drafting. Both are empty directories … **and they predate the `user_dirs` fixture that now
 redirects XDG directories at a throwaway home, so no test can create another.** … **What would be done, if
@@ -495,7 +495,7 @@ two directories gone regardless, which is his to say and costs nothing once §7.
 
 ### §6.5 spec Q8 — `from_web/` in the store's history
 
-**The question, as posed** (`docs/spec.md` Q8, abridged): "`trk_tdp/from_web/` is 26 files and 5.4 MB of a
+**The question, as posed** (`docs/docstrap_on_2026-09-01.md` Q8, abridged): "`trk_tdp/from_web/` is 26 files and 5.4 MB of a
 saved Gemini web page … and it is the great majority of the store by size; everything else together is 536
 KB. It is not a draft. … it carries the captain's personal Google address seven times, Google's own public
 browser API keys … and sixteen WSL `:Zone.Identifier` alternate-data-stream files. No private key, no session
@@ -510,7 +510,7 @@ still fair. It is **32 tracked files**, not 26. The "everything else together is
 roughly six times: everything else is now about 3.2 MB. Nothing has been pushed; the store's log ends at
 `d39e879` and no remote is configured.
 
-**The case for leaving it tracked.** `docs/spec.md` §8.4.2 is emphatic and the rule is load-bearing:
+**The case for leaving it tracked.** `docs/docstrap_on_2026-09-01.md` §8.4.2 is emphatic and the rule is load-bearing:
 `promdance store commit` **forces** `git add`, because "a file in the store exists nowhere else, so there are
 no exclusions." The live `promdance/dkp/.gitignore` reads `*`, and honouring it would have silently dropped
 sixteen real drafts from a commit that reported success. An exclusion for `from_web/` is exactly the kind of
@@ -545,7 +545,7 @@ address travelling with it to whatever host he eventually names.
 
 ### §6.6 spec Q9 — `docs/notes/index.md`
 
-**The question, as posed** (`docs/spec.md` Q9): "`packages/docstrap/docs/notes/index.md` is docstrap's own
+**The question, as posed** (`docs/docstrap_on_2026-09-01.md` Q9): "`packages/docstrap/docs/notes/index.md` is docstrap's own
 generated section page with one line appended by hand — the composer sorts its entries and the file has
 `2026-09-12-mission-statement` after `sphinx-extension-research` rather than before, added by commit
 `5e18bf9`. It is therefore `divergent` and was left alone during the §7.8 purge, correctly, because the rule
@@ -594,7 +594,7 @@ says an index a person maintains is the thing the composed-index design exists t
 
 ### §6.7 spec Q10 — the undeclared `index.md` files
 
-**The question, as posed** (`docs/spec.md` Q10): "Nine of the thirty-one `index.md` files tracked in
+**The question, as posed** (`docs/docstrap_on_2026-09-01.md` Q10): "Nine of the thirty-one `index.md` files tracked in
 `platformshoes` sit in directories no `.docstrap` declares — `apps/ccpane`, `apps/charmoji`, `apps/pd`,
 `packages/git_id`, `packages/object-brewer-ui`, `packages/repo-migrations`, and `docs-site/formizer`,
 `docs-site/laces`, `docs-site/object-brewer`, `docs-site/pitches`. `generated-indexes` cannot reach them and
@@ -646,7 +646,7 @@ that should be declared whether or not §4.6 has landed.
 
 ### §6.8 spec Q11 — the zero-byte section marker
 
-**The question, as posed** (`docs/spec.md` Q11): "A build's scratch tree now holds one zero-byte
+**The question, as posed** (`docs/docstrap_on_2026-09-01.md` Q11): "A build's scratch tree now holds one zero-byte
 `index.docstrap-section` marker per section instead of composed markdown, which is why 'HTML only' cost
 nothing in navigation (§7.8.2). Reaching literal zero files needs private Sphinx internals and was refused on
 those grounds. Is an empty marker inside the build acceptable as the permanent shape, or should docstrap
@@ -692,7 +692,7 @@ source file, which would make zero files reachable without private internals.
 
 ### §6.9 spec Q12 — where `file_index` lives
 
-**The question, as posed** (`docs/spec.md` Q12): "`file_index` is written by a build against
+**The question, as posed** (`docs/docstrap_on_2026-09-01.md` Q12): "`file_index` is written by a build against
 `~/.local/share/docstrap/metadata.db`, so building a project is now a write to the metadata store as well as
 a read of the project. That is what makes the table answerable without the filesystem and what a watcher will
 write into. It is also a new source of rows in a database whose document rows are 59 of 64 test residue
@@ -741,7 +741,7 @@ upgrade` must take — at 522 rows in a 400 KB file, it is nowhere near that.
 
 ### §6.10 spec Q13 — the cross-reference warnings
 
-**The question, as posed** (`docs/spec.md` Q13): "A relative markdown link between documents emits
+**The question, as posed** (`docs/docstrap_on_2026-09-01.md` Q13): "A relative markdown link between documents emits
 `myst.xref_missing` on every docstrap build, because the documents are symlinks and MyST resolves the link
 through the link into the project, which is not in the build. The links all render correctly and every target
 exists, so it is noise — but it is 28 warnings on docstrap's own docs alone, and a build's warning count is
@@ -822,18 +822,18 @@ One figure in the plan is already stale and it matters for Q6: §3.3 describes "
 
 ### §7.1 upgrade Q1 — the one status vocabulary
 
-**The question, as posed** (`0002` Q1): "`docs/spec.md` §5.1 states one shared status vocabulary, but
+**The question, as posed** (`0002` Q1): "`docs/docstrap_on_2026-09-01.md` §5.1 states one shared status vocabulary, but
 `metadata.VALID_STATUSES` holds `draft, proposal, spec, plan, active, archived` while
 `strapdance.STATUS_BY_DIRECTORY` resolves to `done`, `reusable` and `reference`, none of which is in that
 set. Is the metadata set the one vocabulary, with the strapdance directory mappings to be brought into it?
 (§4.4 — this blocks the vocabulary axis and nothing else.)"
 
-**Half of this the captain has already answered.** `docs/spec.md` §5.1, recording his 2026-08-28 decision:
+**Half of this the captain has already answered.** `docs/docstrap_on_2026-09-01.md` §5.1, recording his 2026-08-28 decision:
 "There is **one shared status vocabulary**, the six values above" — the six being metadata's. So the metadata
 set is the one vocabulary, and that half is settled and should not be re-put to him.
 
 **The live half is what to do about the three values that are not in it**, and it is a genuine contradiction
-between two current documents. `strapdance-front-matter.md` §3.2 is titled "**`status` is an open
+between two current documents. `strapdance-front-matter.md` (retired on 2026-11-20) §3.2 is titled "**`status` is an open
 vocabulary**" and says "Write whatever you want. There is no enum, nothing is rejected." §5.1 says the
 vocabulary is closed at six. §5.1 tries to reconcile them — the reader "still preserves an unrecognised value
 verbatim … because the reader never writes" — and that reconciliation works for *arbitrary* values a person
@@ -874,7 +874,7 @@ thing that would make this wrong, and it is a product preference rather than a f
 **Ruling.** Yes, the metadata six are the one vocabulary — §5.1 already settled that and it should be cited
 rather than re-asked. The directory mappings should **not** be brought into it; they should be moved off the
 status axis, because `reusable` and `reference` are kinds the `kind` axis already derives, and `done` is
-`archived` under another name. Separately, `strapdance-front-matter.md` §3.2's heading and its `archive` row
+`archived` under another name. Separately, `strapdance-front-matter.md` (retired on 2026-11-20) §3.2's heading and its `archive` row
 both contradict §5.1 in the live tree and need correcting either way. Medium confidence, because the
 narrowing rests on a judgement about what those three words are *for*.
 
@@ -1018,7 +1018,7 @@ names a release that was never tagged, which is possible while `VERSIONING.md` �
 ### §7.5 upgrade Q5 — the annotations database
 
 **The question, as posed** (`0002` Q5): "§2.1 versions the two databases apart and gives both the same
-refuse-and-migrate treatment. `annotations.db` holds one row against a store `docs/spec.md` §6 calls complete
+refuse-and-migrate treatment. `annotations.db` holds one row against a store `docs/docstrap_on_2026-09-01.md` §6 calls complete
 and unexercised. Should it get that same treatment, rather than the cheaper rule that a version mismatch may
 recreate it?"
 
@@ -1123,7 +1123,7 @@ the whole act should stop.
 
 **The question, as posed** (`0002` Q7): "Two of the three persistent states were found on 2026-09-17,
 independently, to hold rows nobody meant to keep, both written by docstrap's own test suite: 59 document rows
-in `metadata.db` (fact 7) and the two empty store entries `docs/spec.md` Q7 asks about. Is a test that writes
+in `metadata.db` (fact 7) and the two empty store entries `docs/docstrap_on_2026-09-01.md` Q7 asks about. Is a test that writes
 to live user state a defect class worth a standing rule — a suite-wide assertion that no test touches a real
 XDG directory — rather than two separate cleanups?"
 
@@ -1201,7 +1201,7 @@ neither is parked; what remains is a preference no evidence can settle, stated a
 **That the third category is this small is a claim, so here is the check.** I did not shrink it by ruling
 confidently on thin evidence. Eleven of the twenty-one turned out to be answerable because something had
 *already* happened that nobody had gone back to look at — four shipped features, three captain answers
-already written into `docs/spec.md`, two governing-document decisions (`VERSIONING.md` §1 and §2.1), and two
+already written into `docs/docstrap_on_2026-09-01.md`, two governing-document decisions (`VERSIONING.md` §1 and §2.1), and two
 premises that measurement falsified outright. The questions were not hard. They were stale, and staleness
 reads as difficulty when nobody re-measures.
 
@@ -1233,15 +1233,15 @@ sequencing belongs to `docs/roadmap.md` and nowhere else, so whoever files them 
 8. **Move `trk_tdp/from_web/` out of the promdance store** (§6.5), without creating a `.gitignore` exclusion,
    and without deleting bytes. Gated on Q1.
 9. **Move `STATUS_BY_DIRECTORY`'s three values onto the `kind` axis** (§7.1), leaving `done` → `archived`;
-   and correct `strapdance-front-matter.md` §3.2's "open vocabulary" heading and its `archive` row, which
-   contradict `docs/spec.md` §5.1 in the live tree.
+   and correct `strapdance-front-matter.md` (retired on 2026-11-20) §3.2's "open vocabulary" heading and its `archive` row, which
+   contradict `docs/docstrap_on_2026-09-01.md` §5.1 in the live tree.
 10. **Document edits that follow from rulings**, all of them corrections to text the code has overtaken:
     split spec §11 item 8 (§6.2); remove §11's priority ordering (§6.3); correct or retire spec Q10's counts
     (§6.7); restate spec Q3's reason as a prerequisite rather than an open want (§6.1); record `file_index`'s
     migration as drop-and-rebuild in `0002` (§6.9); state the `docstrap status`-in-report-mode case in `0002`
     §3.1 (§7.2); correct `0002` §3.3's "94 KB" and its "two of the three persistent states" (§7.5); and
     correct spec Q1's recorded answer, which says the file moved into `docs/plans/` when it sits at
-    `docs/spec.md` (§10).
+    `docs/docstrap_on_2026-09-01.md` (§10).
 11. **Close the three holds.** All 21 live items now have a ruling; `fm-captain-hold.sh answer` is the path
     once the captain has said which he accepts.
 
@@ -1266,10 +1266,11 @@ question's own premise, which means the question could not have been answered as
    now; and it is 32 tracked files, not 26 (§6.5).
 8. **`0002` §3.3 describes "the live 94 KB database".** It is 400 KB (§7).
 9. **spec Q1's recorded answer names the wrong destination.** It says the captain promoted this file into
-   `docs/plans/`; `docs/plans/` holds only `0001-answer-loop.md` and the spec sits at `docs/spec.md`. The
+   `docs/plans/`; `docs/plans/` holds only `0001-answer-loop.md` and the spec sits at `docs/spec.md` (renamed
+   `docs/docstrap_on_2026-09-01.md` on 2026-11-20). The
    decision (out of `proposals/`) was carried out; the recorded description of where it landed was not
    corrected.
-10. **`strapdance-front-matter.md` §3.2 contradicts `docs/spec.md` §5.1 head-on.** "`status` is an open
+10. **`strapdance-front-matter.md` (retired on 2026-11-20) §3.2 contradicts `docs/docstrap_on_2026-09-01.md` §5.1 head-on.** "`status` is an open
     vocabulary … There is no enum" against "one shared status vocabulary, the six values above" (§7.1).
 11. **`hold-reconcile-h104` §4.3.12 is itself out of date**, and instructively: it declared spec Q9–Q13
     nonexistent on 2026-09-17, the same day commit `97292f3` added them (§3).

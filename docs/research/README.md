@@ -6,9 +6,9 @@ research note surveys, reasons and poses questions; it does not decide. The capt
 A research note is **not**:
 
 1. A verbatim archive of a prompt — those go to `../notes/`.
-2. A committed design — committed designs are `docs/spec.md` and the package pages
-   beside this directory (`../strapdance-front-matter.md`, `../doctor.md`,
-   `../tools-and-instruments.md`).
+2. A committed design — committed designs are `docs/docstrap_on_2026-09-01.md` and the package pages
+   beside this directory (`../doctor.md`, `../tools-and-instruments.md`). The package page
+   `strapdance-front-matter.md` was retired on 2026-11-20.
 3. A decision. An open question here is answered by the captain, never by an agent writing an answer
    into the document.
 

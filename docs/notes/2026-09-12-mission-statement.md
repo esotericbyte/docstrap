@@ -10,7 +10,7 @@ because it names an audience the specification's §0 does not.
 
 ## What it adds to what §0 already says
 
-`docs/spec.md` §0 describes the mechanism — discovery through `.docstrap`, Sphinx rendering, the two
+`docs/docstrap_on_2026-09-01.md` §0 describes the mechanism — discovery through `.docstrap`, Sphinx rendering, the two
 databases, tools layering apparatus into the page. It does not state who the output is for, and that is
 where this sits rather than replacing anything.
 

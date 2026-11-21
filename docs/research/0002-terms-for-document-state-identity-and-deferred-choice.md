@@ -5,8 +5,8 @@ status: Open
 started: 2026-10-05
 last_updated: 2026-10-05
 related_specs:
-  - "docs/spec.md"
-  - "docs/strapdance-front-matter.md"
+  - "docs/docstrap_on_2026-09-01.md"
+  # docs/strapdance-front-matter.md was retired on 2026-11-20.
   - "docs/proposals/0002-the-upgrade-path.md"
 related_notes:
   - "docs/research/0001-front-matter-supersedes-directories.md"

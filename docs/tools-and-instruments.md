@@ -204,7 +204,7 @@ define it, name it, document it in this section. If no, it is a one-off and the 
 | `docstrap.tools.derivatives.promdance_project_root(slug)` | Where a tool's derivative document (an answer set, a review record) is written. Composes nothing itself — it asks `docstrap.paths`, the single owner of the promdance storage path. |
 | `docstrap.projectscope.resolve_slug(slug)` | The project a request's slug names, resolved through the registered-stores list. A tool holding a page's project slug gets the project back without composing a path from it. |
 | `ProjectScope.document_slug(path)` / `document_for_slug(slug)` / `display_path(path)` | The two directions between a source document and the docname its rendered page carries, plus how a path is written for a person. Both the qa tool and the qapanels instrument need them, which is why they are here and not in either. |
-| `docstrap.answers` | The one owner of a project's answer file, and of the key an answer hangs on. Two tools write through it; nothing else reads or writes the format. `docs/spec.md` §8.1. |
+| `docstrap.answers` | The one owner of a project's answer file, and of the key an answer hangs on. Two tools write through it; nothing else reads or writes the format. `docs/docstrap_on_2026-09-01.md` §8.1. |
 | `docstrap.slugs.slugify(value)` | The one slug function. Nothing else in docstrap turns text into a name, and no tool should. |
 | `docstrap.tools.registry.sphinx_extensions()` | What the generated `conf.py` `extensions` list is built from. |
 | `<tool>/ui/index.ts` | The frontend build's registration, on the same "the directory is the registration" rule. A tool with no `ui/` is not built and keeps whatever is in its `static/`. |

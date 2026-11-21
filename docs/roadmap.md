@@ -9,7 +9,8 @@ captain's act rather than the document's claim; he performed it on 2026-09-07, t
 specification. The folder rule accordingly now reads as approved.
 
 Two companion documents, both reconciled against the code on 2026-09-01 and both in `plans/`:
-[`docs/spec.md`](spec.md) is the specification of what docstrap does, and
+[`docs/docstrap_on_2026-09-01.md`](docstrap_on_2026-09-01.md) is a dated description of what
+docstrap did as of that reconciliation, and
 [`docs/implementation-record.md`](implementation-record.md) is the
 record of what has landed and how it differed from what was planned. This roadmap does not restate
 either. Where all three disagree, `packages/docstrap/` is above them.
@@ -60,7 +61,7 @@ implementation record's Q2 is where that question lives.
 
 Three things belong to whichever release comes next rather than to a later one.
 
-1. **The index is transient, transparent and HTML-only, and it has landed.** `docs/spec.md` §7.8 is
+1. **The index is transient, transparent and HTML-only, and it has landed.** `docs/docstrap_on_2026-09-01.md` §7.8 is
    the account: no build produces markdown anywhere, `file_index` (§5.2) is what a published
    directory contains, and the seventeen `index.md` files earlier builds left in this repository are
    gone (§4.12). It is listed here rather than below because it is done and it is part of what
@@ -90,7 +91,7 @@ inclusion, slug and storage ownership, skill install, promdance backup. The sing
 of them does not exist.
 
 **The surface that pass runs against was built on 2026-09-07**: the three-panel Q&A instrument of
-`docs/spec.md` §7.6, with the keyed answer store of its §8.1 underneath it. Answering a
+`docs/docstrap_on_2026-09-01.md` §7.6, with the keyed answer store of its §8.1 underneath it. Answering a
 question end to end — select it in the list, type into the editor, watch it autosave, reload and find
 it under the same key — is now a real path through the flow rather than a described one, and
 `packages/docstrap/tests/test_answers.py` walks it against a built project. What is still missing is
@@ -175,7 +176,7 @@ the captain's repositories, and every one is machinery. Measured across all seve
 Patterns rather than literal names is what keeps this one field: `.*` cannot be expressed as a name,
 and a repository that wants something else out of discovery adds an entry here rather than asking for
 another rule. It also generalises to the discovery walk what the scanner already applies to
-config-relative paths (`docs/spec.md` §3).
+config-relative paths (`docs/docstrap_on_2026-09-01.md` §3).
 
 It is a **walk** rule, not a predicate applied to a path. The distinction matters: docstrap's own suite
 points the scanner at `tests/fixtures/workspace` as its root, and that walk begins below the `tests`
@@ -262,7 +263,7 @@ link does.
 ### §4.10 An MCP server, built with FastMCP
 
 **docstrap exposes its capabilities over MCP.** Decided by the captain, 2026-09-12, naming FastMCP as
-the implementation. This reverses `docs/spec.md` §0.2, which lists an MCP server under what is not in
+the implementation. This reverses `docs/docstrap_on_2026-09-01.md` §0.2, which lists an MCP server under what is not in
 scope; that listing predates the mission statement of the same day.
 
 The reason is in that mission: format and delivery are to be optimised for **both human developers and
@@ -284,7 +285,7 @@ to name.
 The surface worth having is small and follows from that: list the projects a user aggregates, list a
 project's documents, read one, list its open questions, submit an answer through the same intake the
 panels use, and resolve a document to its URL. What it must not do is write to a source document —
-`docs/spec.md` §0's two properties hold here exactly as they hold for every tool, and an MCP client is a
+`docs/docstrap_on_2026-09-01.md` §0's two properties hold here exactly as they hold for every tool, and an MCP client is a
 better-armed caller than a browser, not a more privileged one.
 
 ### §4.11 The answer loop, from a real run
@@ -363,7 +364,7 @@ when a decision moves (§8.3). The key that made all of it possible already exis
 
 ### §4.12 Removing the index files earlier builds left in five repositories
 
-No build writes markdown for a section page any more, anywhere (`docs/spec.md` §7.8), which stops
+No build writes markdown for a section page any more, anywhere (`docs/docstrap_on_2026-09-01.md` §7.8), which stops
 fifty-five tracked `index.md` files from growing to fifty-six but removes none of them. The removals
 are one commit per repository — `platformshoes`, `rlp`, `trk_tdp`, `dkp`, `formizer` — and they had
 to wait for the fix to land, because a rebuild before it would have recreated whatever was deleted.
@@ -407,7 +408,7 @@ somebody's afternoon rather than a deliverable that needs designing.
 
 ### §4.13 A watcher, so a document is indexed because it appeared
 
-`docs/spec.md` §11(4) is a long-standing intent and §7.8.5 is now the requirement it answers:
+`docs/docstrap_on_2026-09-01.md` §11(4) is a long-standing intent and §7.8.5 is now the requirement it answers:
 indexing is the tool's job, it is automatic, and the trigger is file creation rather than somebody
 running a build. A watcher observes creation, movement and deletion under a project's `docs_root`,
 writes the one path that changed into `file_index`, and leaves it there — never carrying its own copy
@@ -434,7 +435,7 @@ different lifecycles, different front-matter, different apparatus on the page an
 what "done" means. Today the layout handles the differences it knows about as special cases inside
 itself, and that does not scale past the handful it already carries.
 
-`docs/spec.md` §7.9 names this as a direction and nothing more. The declaration object of §7.1 is the
+`docs/docstrap_on_2026-09-01.md` §7.9 names this as a direction and nothing more. The declaration object of §7.1 is the
 obvious precedent — a tool is a directory with a declaration and three consumers read it — and a
 document-type plugin would want the same property: one declaration, no consumer keeping a copy of
 what it says. Nothing is designed, and the first real question is which document types actually
@@ -445,7 +446,7 @@ differ in ways worth modelling rather than which ones have different names.
 `promdance intern` does the whole wiring except one step: where a project already holds a real
 `promdance/` directory, completing the captain's creation sequence means **moving** its files into
 the store, and `intern` never moves a file. Such a project is reported and left as found
-(`docs/spec.md` §8.6). Three repositories are in that state today.
+(`docs/docstrap_on_2026-09-01.md` §8.6). Three repositories are in that state today.
 
 There is no agreement gating this and no design question outstanding — the sequence has been settled
 since 2026-09-15 (add to `.gitignore`, create the store directory, move the files, symlink) and the
@@ -460,7 +461,7 @@ content, since merging two sets of drafts is not a repair.
 
 ### §4.16 A source-control plugin, with pluggy
 
-`docs/spec.md` §8.7. A connector for source-control providers other than GitHub is intended, and
+`docs/docstrap_on_2026-09-01.md` §8.7. A connector for source-control providers other than GitHub is intended, and
 `pluggy` is the likely mechanism. The boundary already exists: `docstrap.forge` defines the three
 things a provider has to answer, every GitHub specific lives in one class behind it, and a test
 fingerprints the boundary so a provider detail written above it fails the suite.
@@ -474,14 +475,15 @@ amount of designing against none.
 
 The fifth item of the captain's 2026-09-17 note: a system to archive used prompts and specifications
 in the promdance git when they are promoted into `docs/`, triggered by a change in the strapdance
-header. `docs/spec.md` §8.8 is its named place and holds nothing, at his explicit direction — he said
+header. `docs/docstrap_on_2026-09-01.md` §8.8 is its named place and holds nothing, at his explicit direction — he said
 he needs to think it through himself.
 
 Now that the store is a git repository (§8.4), the "archive in the promdance git" half has somewhere
 to happen. The undecided part is the trigger: which strapdance header change means *promoted, now
 archive the original*. That is a question about the header vocabulary before it is a question about
 archiving, and the vocabulary's status values come from a document's position
-(`docs/strapdance-front-matter.md`). Waiting on the captain.
+(the document that described them, `docs/strapdance-front-matter.md`, was retired on 2026-11-20). Waiting on
+the captain.
 ### §4.18 An upgrade path, so being out of date is loud
 
 **There is no upgrade path of any kind, and the way it fails is silence.** `PRAGMA user_version` is 0
@@ -534,7 +536,7 @@ model that state in docstrap, and no such model exists. The captain deferred it 
 issue to think about rather than work to schedule, and §4.8's orphaned pool is what holds those rows in
 the meantime.
 
-`docs/spec.md` §11 is the full list of what does not exist, each entry a statement of
+`docs/docstrap_on_2026-09-01.md` §11 is the full list of what does not exist, each entry a statement of
 absence rather than a commitment. Its ordering predates four of its own entries and has not been
 re-confirmed, which is the specification's Q6.
 
@@ -571,7 +573,7 @@ Numbered so `docstrap questions` finds them, separately from the section numbers
 that already live in the specification or the plan are cited by number above rather than re-asked
 here, so each is asked in one place. All three were answered by the captain on 2026-09-07; each keeps
 its label and its number, with the answer written into the item, because a number is half of the key
-an answer hangs on (`docs/spec.md` §8.1.1).
+an answer hangs on (`docs/docstrap_on_2026-09-01.md` §8.1.1).
 
 **Q1.** The question-and-answer panels have no decided answer store. Submitted answers are appended
 to `<doc-slug>_answers.md` in the project's promdance directory today, which is a derivative file and
@@ -580,7 +582,7 @@ database under a questioning motivation, a promdance-side store of their own, or
 already land in?
 **Answered 2026-09-07 — a promdance-side store of their own.** One keyed markdown file per project
 with YAML front-matter, `<project-promdance>/answers.md`, owned by `docstrap.answers` and specified
-in `docs/spec.md` §8.1. Not the annotations database: that store is Annotorious's, which
+in `docs/docstrap_on_2026-09-01.md` §8.1. Not the annotations database: that store is Annotorious's, which
 `docstrap.annotations`' own docstring says, and its `creator` field models a different audience —
 a reader of a deployed site, identified by the deploying organisation's user system, a Discord or
 Telegram handle, or an email address — rather than whoever owns a document and decides its open
@@ -602,12 +604,12 @@ referent for its own implementation rather than restating them as docstrap decis
 text into a docstrap ADR.
 
 **Q3.** The three-panel Q&A mode was scoped as a later phase in a numbered series that no longer
-exists (`docs/spec.md` §7.3). The launcher was deliberately built so a second control
+exists (`docs/docstrap_on_2026-09-01.md` §7.3). The launcher was deliberately built so a second control
 could drive tool visibility without owning it, which is the seam three-panel mode was expected to use
 (`packages/docstrap/docs/tools-and-instruments.md` §3). Where does it sit now — a deliverable in
 §4 above, a deferred item in §5, or dropped?
 **Answered 2026-09-07 — a deliverable now, and delivered.** Not deferred and not dropped. It is
-`docstrap.tools.qapanels`, specified in `docs/spec.md` §7.6, and it uses exactly the
+`docstrap.tools.qapanels`, specified in `docs/docstrap_on_2026-09-01.md` §7.6, and it uses exactly the
 launcher seam the question names: it is declared an instrument, so the launcher gives it a launch
 action rather than a toggle and drives `docstrap.tools` visibility without owning it.
 

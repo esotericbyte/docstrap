@@ -9,9 +9,9 @@ in `docs/roadmap.md` §4.2, which is this item's entry.
 ## 1 What exists, and the one finding that changes the framing
 
 The server half is built and has never been exercised by a client: the `annotations` table of
-`docs/spec.md` §6, owned by `docstrap.annotations`, and the W3C Web Annotation Protocol subset on
+`docs/docstrap_on_2026-09-01.md` §6, owned by `docstrap.annotations`, and the W3C Web Annotation Protocol subset on
 `/api/annotations` in `server.py` (GET by `?target=`, POST, PATCH and DELETE by id). The captain ruled
-on 2026-09-07 that this store is Annotorious's (`docs/spec.md` §6 and its Q4).
+on 2026-09-07 that this store is Annotorious's (`docs/docstrap_on_2026-09-01.md` §6 and its Q4).
 
 **Annotorious itself annotates images, not text.** `@annotorious/annotorious` 3.9.4 describes itself
 on npm as "image annotation functionality"; its Svelte bindings pull in OpenSeadragon, a deep-zoom
@@ -40,7 +40,7 @@ DECLARATION = ToolDeclaration(
     target=Target.DOCUMENT,
     entry="docstrap.tools.annotate",
     # No collection of its own. The store and its W3C API are the
-    # server's (docs/spec.md §6), the arrangement the status badge has
+    # server's (docs/docstrap_on_2026-09-01.md §6), the arrangement the status badge has
     # with /api/documents and the answered tool has with /api/answers.
     api_collection=None,
     default_visible=False,
@@ -82,7 +82,7 @@ does four things.
    so the tool marks the chrome it does not want selected rather than hunting for a perfectly bounded
    element.
 2. **Names the document.** The W3C target's `source` is `docstrap://document/<metadata-id>`, the form
-   `docs/spec.md` §6 gives for `target_doc`, read from the page's existing doc-id context (`ctx.docId`).
+   `docs/docstrap_on_2026-09-01.md` §6 gives for `target_doc`, read from the page's existing doc-id context (`ctx.docId`).
    Keying on the metadata id rather than the path is what lets an annotation survive the document being
    renamed, the same property `docstrap.answers` relies on.
 3. **Loads what exists.** `createTextAnnotator(container, { adapter: W3CTextFormat(source, container) })`,
@@ -152,7 +152,7 @@ not (1). It is Q3, because it is a change to the declaration surface and not to 
 
 ## 6 Smaller things the build would meet
 
-**Who `creator` is.** On a local `docstrap serve` there is no identity, while `docs/spec.md` §6 says
+**Who `creator` is.** On a local `docstrap serve` there is no identity, while `docs/docstrap_on_2026-09-01.md` §6 says
 `creator` models a reader of a *deployed* site, identified by the deploying organisation's user system.
 The text annotator accepts a `user` option and the store will record whatever is sent. Leaving it
 empty locally loses nothing that can be recovered later; inventing an identity scheme here would be

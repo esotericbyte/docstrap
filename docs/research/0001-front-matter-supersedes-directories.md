@@ -6,8 +6,8 @@ started: 2026-09-01
 last_updated: 2026-09-01
 related_specs:
   - "/home/johnh/firstmate/data/spec-context-frontmatter.md"
-  - "docs/spec.md"
-  - "packages/docstrap/docs/strapdance-front-matter.md"
+  - "docs/docstrap_on_2026-09-01.md"
+  # packages/docstrap/docs/strapdance-front-matter.md was retired on 2026-11-20.
 related_notes: []
 related_code:
   - "packages/docstrap/src/docstrap/strapdance.py"
@@ -140,7 +140,7 @@ Two further seams worth recording, both consequences of the same one-slot proble
 ### 3.4 A third vocabulary, in the database, agreeing with neither
 
 `metadata.VALID_STATUSES` is `{"draft", "proposal", "spec", "plan", "active", "archived"}`, closed
-and enforced on write (`metadata.py`, and `docs/spec.md` §5 which specifies it).
+and enforced on write (`metadata.py`, and `docs/docstrap_on_2026-09-01.md` §5 which specifies it).
 The strapdance status vocabulary is open, and its suggested values are `active`, `done`, `archive`,
 `reusable`, `reference`.
 
@@ -162,7 +162,7 @@ The database calls `draft`, `proposal`, `spec` and `plan` statuses. The chain ca
 words kinds. Both are reading the same folders. The database's position is the one that matches the
 `CLAUDE.md` folder rule quoted in §3.3 — which suggests the crossing in §3.3 is not a coin-flip but a
 provable misfiling, since the workspace's own governing rule and the workspace's own database both
-treat those four as lifecycle. `docs/spec.md` §5.1 records that nothing reconciles the
+treat those four as lifecycle. `docs/docstrap_on_2026-09-01.md` §5.1 records that nothing reconciles the
 two vocabularies and declines to decide which is authoritative; that open question (§5.1's, carried
 as `Q2` in that document) is upstream of this note and is not re-asked here. What this note adds is
 that the disagreement is not merely *unreconciled* — the two vocabularies file the same four words
@@ -201,7 +201,7 @@ longer speak for this project", then a project full of documents whose front-mat
 
 ### 3.6 The one page the kind table cannot classify
 
-`packages/docstrap/docs/strapdance-front-matter.md` — the hand-written page that defines the kind
+`packages/docstrap/docs/strapdance-front-matter.md` (retired on 2026-11-20) — the hand-written page that defines the kind
 vocabulary — sits directly in `docs/` and resolves to `kind = None [unknown] parent directory docs
 maps to no known kind; not guessed`. The document that defines classification by directory cannot be
 classified by directory, because it is not filed in one of the nine. That is not a defect; it is the
@@ -403,7 +403,7 @@ exist — three different subsets of the same workspace, none of them derived fr
 outside link, `formizer-docs -> ../../formizer/docs`, escapes the repository into a sibling checkout,
 so it resolves on this machine and nowhere else.
 
-The second is the promdance project-side view, specified in `docs/spec.md` §8(2) as "a
+The second is the promdance project-side view, specified in `docs/docstrap_on_2026-09-01.md` §8(2) as "a
 symlink to the canonical location" created by `ensure_promdance`, which "never overwrites: a real
 directory, or a symlink pointing somewhere else, is left exactly as found." In the four surveyed
 repositories that have a `promdance/` entry — `platformshoes`, `rlp`, `dkp`, `ronin-ledger` —

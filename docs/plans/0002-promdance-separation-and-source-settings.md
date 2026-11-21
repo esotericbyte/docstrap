@@ -267,7 +267,7 @@ The guide contains no private project, host, machine or person names and no home
 A test in `tests/` holds a deny list and fails if any guide file matches it. The deny list lives
 outside the guide so that the list itself is not published.
 
-`spec.md`, `implementation-record.md` and `roadmap.md` keep their jobs and their section numbers.
+`docstrap_on_2026-09-01.md`, `implementation-record.md` and `roadmap.md` keep their jobs and their section numbers.
 The guide describes how to use the tool. The spec keeps the decisions and the evidence behind them.
 
 ## §8 Migration and stages
@@ -305,7 +305,7 @@ Each stage leaves the suite green and the live installation building.
 3. **Promdance moves out.** Create `packages/promdance`, move the console script, the modules and
    the 7 test modules, add the entry point and the import-fence test, and update the stable install.
    Correct `AGENTS.md`, whose "One owner" items 2 and 7 will then name moved files.
-4. **The documents.** Write the guide set and its deny-list test, and bring `spec.md` §3, §4.3, §8
+4. **The documents.** Write the guide set and its deny-list test, and bring `docstrap_on_2026-09-01.md` §3, §4.3, §8
    and §10 into line with the code. Keep the section numbers and archive the stale text.
 
 ## §9 Architecture and tradeoffs

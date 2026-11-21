@@ -6,7 +6,7 @@ travelling correctly and closing the right work, with six things broken around t
 
 **All six steps were carried out on 2026-09-14, in this order.** What each delivered, and where it
 differed from what is written below, is in `docs/implementation-record.md` §1.3(13)–(18); what the tool
-now does is in `docs/spec.md` §8.1.3, §8.1.4, §7.6(1), §8.2, §7.7 and §8.3, one per step. This document
+now does is in `docs/docstrap_on_2026-09-01.md` §8.1.3, §8.1.4, §7.6(1), §8.2, §7.7 and §8.3, one per step. This document
 is kept as the record of the ordering and the reasoning that produced it, not as outstanding work. One
 thing it asked for is **not** done: the `answered` tool of step 5 has had no in-browser run, which
 `docs/tools-and-instruments.md` §7 records as outstanding.
@@ -83,7 +83,7 @@ every consumer's problem.
 **Delivers:** each question shown with its current answer beneath it, and an unmistakable marker on the
 ones still open.
 
-Roadmap §4.11 item 4 is the finding. `docs/spec.md` §0 forbids writing into the source document and that
+Roadmap §4.11 item 4 is the finding. `docs/docstrap_on_2026-09-01.md` §0 forbids writing into the source document and that
 stays true: this is resolved at build or serve time, not appended to anything. Not appended was allowed
 to become not linked, and this is where that is corrected.
 
@@ -97,7 +97,7 @@ it was answered, and a record citable from wherever the decision is acted on.
 
 The captain's finding, in his words: "it's a pregnancy with no delivery." A decision that leaves no
 artifact has been stored rather than delivered, and three things already assume otherwise - documents as
-the unit of value in `docs/spec.md` §0, the documentation-first practice, and dkp's contract stamp
+the unit of value in `docs/docstrap_on_2026-09-01.md` §0, the documentation-first practice, and dkp's contract stamp
 deriving from a document's hash so that an answered question moves a version.
 
 The key needed already exists: an answer hangs on `<document-id>:<label>` and survives a rename.
